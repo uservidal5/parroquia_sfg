@@ -15,11 +15,7 @@ class CreateFichasTable extends Migration
     {
         Schema::create('fichas', function (Blueprint $table) {
             $table->id();
-            $table->string('barrio_fic');
-            $table->string('direccion_fic');
-            $table->date('f_nacimiento_fic');
             $table->date('f_bautizo_fic');
-            $table->string('edad_fic',2);
             $table->string('iniciacion_fic');
             $table->integer('comunion_i_fic');
             $table->integer('comunion_ii_fic');

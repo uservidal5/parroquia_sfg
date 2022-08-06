@@ -16,6 +16,11 @@ class PerfilController extends Controller
     public function index()
     {
         //
+        $data = array();
+
+        $data["estudiantes"] = Perfil::all();
+        // return json_encode($estudiantes);
+        return view("dashboard.estudiantes.index", $data);
     }
 
     /**
@@ -26,6 +31,7 @@ class PerfilController extends Controller
     public function create()
     {
         //
+        return view("dashboard.estudiantes.create");
     }
 
     /**
@@ -36,18 +42,24 @@ class PerfilController extends Controller
      */
     public function store(StorePerfilRequest $request)
     {
-        //
+        //encrypt and decrypt
+        $encriptada = encrypt($request->contrasenia_per);
+        $request["contrasenia_per"] = $encriptada;
+
+        $new_perfil = new Perfil($request->all());
+        $new_perfil->save();
+        return redirect(route("estudiantes.index"));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Perfil  $perfil
+     * @param  \App\Models\Perfil
      * @return \Illuminate\Http\Response
      */
     public function show(Perfil $perfil)
     {
-        //
+        return json_encode($perfil);
     }
 
     /**
@@ -59,6 +71,8 @@ class PerfilController extends Controller
     public function edit(Perfil $perfil)
     {
         //
+        $data["perfil"] = $perfil;
+        return view("dashboard.estudiantes.edit", $data);
     }
 
     /**
@@ -71,6 +85,8 @@ class PerfilController extends Controller
     public function update(UpdatePerfilRequest $request, Perfil $perfil)
     {
         //
+        $perfil->update($request->all());
+        return redirect(route("estudiantes.index"));
     }
 
     /**
@@ -82,5 +98,7 @@ class PerfilController extends Controller
     public function destroy(Perfil $perfil)
     {
         //
+        $perfil->delete();
+        return redirect(route("estudiantes.index"));
     }
 }
