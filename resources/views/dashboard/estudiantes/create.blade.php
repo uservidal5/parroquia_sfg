@@ -48,9 +48,12 @@
                     <div class="col-12 col-md-6 mb-4">
                         <label for=""><b>BARRIO</b></label>
                         <select name="barrio_per" id="barrio_per" class="form-control">
-                            <option value="OPC 1">OPC 1</option>
-                            <option value="OPC 2">OPC 2</option>
-                            <option value="OPC 3">OPC 3</option>
+                            <option value="Centro de Guayllabamba">Centro de Guayllabamba</option>
+                            <option value="Chaquibamba">Chaquibamba</option>
+                            <option value="Los Duques">Los Duques</option>
+                            <option value="San Pedro">San Pedro</option>
+                            <option value="San Juan">San Juan</option>
+                            <option value="Doña Ana">Doña Ana</option>
                         </select>
                     </div>
                     <div class="col-12 col-md-12 mb-4">
