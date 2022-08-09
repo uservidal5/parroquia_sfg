@@ -45,9 +45,12 @@
                     <div class="col-12 col-md-6 mb-4">
                         <label for=""><b>BARRIO</b></label>
                         <select name="barrio_per" id="barrio_per" class="form-control">
-                            <option {{ $perfil->barrio_per == 'OPC 1' ? 'selected' : '' }} value="OPC 1">OPC 1</option>
-                            <option {{ $perfil->barrio_per == 'OPC 2' ? 'selected' : '' }} value="OPC 2">OPC 2</option>
-                            <option {{ $perfil->barrio_per == 'OPC 3' ? 'selected' : '' }} value="OPC 3">OPC 3</option>
+                            <option {{ $perfil->barrio_per == 'Centro de Guayllabamba' ? 'selected' : '' }} value="Centro de Guayllabamba">Centro de Guayllabamba</option>
+                            <option {{ $perfil->barrio_per == 'Chaquibamba' ? 'selected' : '' }} value="Chaquibamba">Chaquibamba</option>
+                            <option {{ $perfil->barrio_per == 'Los Duques' ? 'selected' : '' }} value="Los Duques">Los Duques</option>
+                            <option {{ $perfil->barrio_per == 'San Pedro' ? 'selected' : '' }} value="San Pedro">San Pedro</option>
+                            <option {{ $perfil->barrio_per == 'San Juan' ? 'selected' : '' }} value="San Juan">San Juan</option>
+                            <option {{ $perfil->barrio_per == 'Doña Ana' ? 'selected' : '' }} value="San Juan">Doña Ana</option>
                         </select>
                     </div>
                     <div class="col-12 col-md-12 mb-4">
