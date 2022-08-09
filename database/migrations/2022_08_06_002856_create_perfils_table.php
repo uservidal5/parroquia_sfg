@@ -19,10 +19,10 @@ class CreatePerfilsTable extends Migration
             $table->string('apellido_per');
             $table->string('nombre_per');
             $table->date('f_nacimiento_per');
-            $table->string('barrio_per');
-            $table->string('direccion_per');
-            $table->string('correo_per');
-            $table->string('contrasenia_per');
+            $table->string('barrio_per')->nullable(true);
+            $table->string('direccion_per')->nullable(true);
+            $table->string('correo_per')->nullable(true);
+            $table->string('contrasenia_per')->nullable(true);
             $table->integer('estado_per')->default(1);
             $table->timestamps();
         });

@@ -4,71 +4,73 @@
 @section('page_title')
     Estudiantes | Inicio
 @endsection
+@section('name_section')
+    <ul class="navbar-nav">
+        <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
+            <h1 class="welcome-text text-uppercase">Gestión de <span class="text-black fw-bold">Estudiantes</span></h1>
+        </li>
+    </ul>
+@endsection
 
 @section('body')
-    <div class="container">
-        <div class="row">
-            <div class="col-12 mb-4">
-                <h1>HOLA MUNDO!</h1>
-            </div>
-            <div class="col-12 text-right mb-4">
-                <a href="{{ route('estudiantes.create') }}" class="btn btn-primary">
-                    NUEVO
-                    <i class="fas fa-plus ml-2"></i>
-                </a>
-            </div>
-            <div class="col-12">
-                <div class="table-responsive">
-                    <table class="table table-hover" id="tabla-estudiantes">
-                        <thead>
+    <div class="row">
+        <div class="col-12 text-end mb-4">
+            <a href="{{ route('estudiantes.create') }}" class="btn btn-rounded btn-primary">
+                NUEVO
+                <i class="fas fa-plus ml-2"></i>
+            </a>
+        </div>
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-hover" id="tabla-estudiantes">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="max-width: 1.5rem;">#</th>
+                            <th scope="col">CI</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col" class="" style="max-width: 3rem;">
+                                <i class="fas fa-cog mr-2"></i>
+                                Acciones
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($estudiantes as $estudiante)
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">CI</th>
-                                <th scope="col">Apellido</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">
-                                    <i class="fas fa-cog"></i>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($estudiantes as $estudiante)
-                                <tr>
-                                    <th scope="row">{{ $estudiante->id }}</th>
-                                    <td>{{ $estudiante->cedula_per }}</td>
-                                    <td>{{ $estudiante->apellido_per }}</td>
-                                    <td>{{ $estudiante->nombre_per }}</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button data-target="#modalEstudiante" data-toggle="modal"
-                                                data-url="{{ route('estudiantes.show', ['perfil' => $estudiante]) }}"
-                                                type="button" class="btn">
-                                                <i class="fas fa-eye"></i>
+                                <th scope="row">{{ $estudiante->id }}</th>
+                                <td>{{ $estudiante->cedula_per }}</td>
+                                <td>{{ $estudiante->apellido_per }}</td>
+                                <td>{{ $estudiante->nombre_per }}</td>
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <button data-target="#modalEstudiante" data-toggle="modal"
+                                            data-url="{{ route('estudiantes.show', ['perfil' => $estudiante]) }}"
+                                            type="button" class="btn btn-plain px-0 mx-2">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <a href="{{ route('estudiantes.edit', ['perfil' => $estudiante]) }}"
+                                            class="btn btn-plain px-0 mx-2">
+                                            <i class="fas fa-pen"></i>
+                                        </a>
+                                        <form class="d-inline-block" method="POST" id="form-delete-{{ $estudiante->id }}"
+                                            action="{{ route('estudiantes.delete', ['perfil' => $estudiante]) }}">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="button" onclick="borrarEstudiante({{ $estudiante->id }});"
+                                                class="btn btn-plain px-0 mx-2 text-danger">
+                                                <i class="fas fa-trash"></i>
                                             </button>
-                                            <a href="{{ route('estudiantes.edit', ['perfil' => $estudiante]) }}"
-                                                class="btn">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
-                                            <form class="d-inline-block" method="POST"
-                                                id="form-delete-{{ $estudiante->id }}"
-                                                action="{{ route('estudiantes.delete', ['perfil' => $estudiante]) }}">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="button" onclick="borrarEstudiante({{ $estudiante->id }});"
-                                                    class="btn">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
 
-                        </tbody>
-                    </table>
-                </div>
-
+                    </tbody>
+                </table>
             </div>
+
         </div>
     </div>
 @endsection
@@ -210,8 +212,8 @@
             $("#modal-loading").show();
             $("#info-estudiante").hide();
         });
-        $(() => {
-            $("#tabla-estudiantes").DataTable();
-        });
+
+
+        $("#tabla-estudiantes").DataTable();
     </script>
 @endsection

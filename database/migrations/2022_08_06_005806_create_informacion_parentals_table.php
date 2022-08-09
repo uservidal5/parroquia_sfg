@@ -16,13 +16,19 @@ class CreateInformacionParentalsTable extends Migration
         Schema::create('informacion_parentals', function (Blueprint $table) {
             $table->id();
             $table->string('tipo_parental_inf');
-            $table->string('nombre_apellido_inf');
-            $table->string('celular_inf');
-            $table->integer('bautizo_inf');
-            $table->integer('comunion_inf');
-            $table->integer('confirmacion_inf');
-            $table->integer('matrimonio_inf');
-            $table->string('estado_civil_inf');
+            $table->string('apellido_inf')->nullable();
+            $table->string('nombre_inf')->nullable();
+            $table->string('celular_inf')->nullable();
+            $table->integer('bautizo_inf')->default(0);
+            $table->integer('comunion_inf')->default(0);
+            $table->integer('confirmacion_inf')->default(0);
+            $table->integer('matrimonio_inf')->default(0);
+            $table->string('estado_civil_inf')->nullable();
+            $table->integer('estado_inf')->default(1);
+            // FK
+            $table->unsignedBigInteger('perfil_id');
+            $table->foreign('perfil_id')->references('id')->on('perfils')->onDelete('cascade');
+            //
             $table->timestamps();
         });
     }

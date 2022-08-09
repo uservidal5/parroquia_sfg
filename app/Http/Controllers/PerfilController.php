@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Perfil;
 use App\Http\Requests\StorePerfilRequest;
 use App\Http\Requests\UpdatePerfilRequest;
+use App\Models\InformacionParental;
 
 class PerfilController extends Controller
 {
@@ -48,7 +49,21 @@ class PerfilController extends Controller
 
         $new_perfil = new Perfil($request->all());
         $new_perfil->save();
-        return redirect(route("estudiantes.index"));
+        // return $new_perfil->id;
+        // PADRE
+        $info_padre = new InformacionParental();
+        $info_padre->tipo_parental_inf = "PADRE";
+        $info_padre->perfil_id = $new_perfil->id;
+        $info_padre->save();
+
+        // MADRE
+        $info_madre = new InformacionParental();
+        $info_madre->tipo_parental_inf = "MADRE";
+        $info_madre->perfil_id = $new_perfil->id;
+        $info_madre->save();
+
+        // FICHA
+        return redirect(route('estudiantes.edit', ['perfil' => $new_perfil]));
     }
 
     /**
@@ -72,6 +87,15 @@ class PerfilController extends Controller
     {
         //
         $data["perfil"] = $perfil;
+
+        $data["padre"] = InformacionParental::where("perfil_id", $perfil->id)
+            ->where("tipo_parental_inf", "PADRE")
+            ->first();
+
+        $data["madre"] = InformacionParental::where("perfil_id", $perfil->id)
+            ->where("tipo_parental_inf", "MADRE")
+            ->first();
+        // echo json_encode($data);
         return view("dashboard.estudiantes.edit", $data);
     }
 
@@ -86,7 +110,8 @@ class PerfilController extends Controller
     {
         //
         $perfil->update($request->all());
-        return redirect(route("estudiantes.index"));
+        return back();
+        // return redirect(route("estudiantes.index"));
     }
 
     /**

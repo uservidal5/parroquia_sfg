@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Perfil extends Model
 {
     use HasFactory;
-    public function getRouteKeyName()
-    {
-        return 'cedula_per';
-    }
+    // public function getRouteKeyName()
+    // {
+    //     return 'cedula_per';
+    // }
     protected $fillable = [
         'cedula_per',
         'apellido_per',
