@@ -116,26 +116,7 @@
         })();
     </script>
     <script>
-        function lanzar_toast(icon, text) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-
-            Toast.fire({
-                icon: icon,
-                title: text,
-            })
-        }
-
-        function resultado_validacion(id_input, result, message) {
+       function resultado_validacion(id_input, result, message) {
             $(".input-validation").remove();
             $(`${id_input}`).addClass(`is-${result ? 'valid' : 'invalid'}`);
             $(`${id_input}`).parent().append(`
@@ -145,39 +126,5 @@
         }
 
         //
-        $(() => {
-
-        })
-
-
-        // Swal.fire('Any fool can use a computer')
-        // $("#form-new-student").submit((e) => {
-        //     e.preventDefault();
-        //     // VALIDACION
-        //     // $("#form-new-student").addClass('was-validated');
-        //     resultado_validacion("#correo_per", false, "Válido!");
-
-        //     if (false) {
-        //         Swal.fire({
-        //             title: 'Listo!',
-        //             text: 'Estudiante registrado con éxito.',
-        //             icon: 'success',
-        //             showConfirmButton: false,
-        //         });
-        //         setTimeout(() => {
-        //             e.target.submit();
-        //         }, 2000);
-        //     } else {
-        //         Swal.fire({
-        //             title: 'Oops!',
-        //             text: 'Por favor corrige la informacion ingresada.',
-        //             icon: 'error',
-        //             confirmButtonText: "Cerrar",
-        //             // timer: 2000,
-        //             // showConfirmButton: false,
-        //         });
-        //     }
-        // });
-        $(() => {});
     </script>
 @endsection

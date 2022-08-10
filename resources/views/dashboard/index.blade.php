@@ -7,7 +7,7 @@
 @section('name_section')
     <ul class="navbar-nav">
         <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-            <h1 class="welcome-text">Bienvenido, <span class="text-black fw-bold">NOMBRE APELLIDO</span></h1>
+            <h1 class="welcome-text">Bienvenido, <span class="text-black fw-bold">{{ Auth::user()->name }}</span></h1>
         </li>
     </ul>
 @endsection

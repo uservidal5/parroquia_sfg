@@ -134,6 +134,12 @@
         }
     </style>
     @yield('css')
+    <script>
+        const mostrar_menu = () => {
+            const navbar = document.getElementById("sidebar");
+            navbar.classList.toggle("active");
+        }
+    </script>
 </head>
 
 <body>
@@ -156,7 +162,7 @@
                         <span>PARROQUIA <br><b>SFG</b></span>
                     </a>
                     <a class="navbar-brand brand-logo-mini" href="{{ route('dashboard') }}">
-                        <span class="logo-css d-md-none">P</span>
+                        <span class="logo-css d-md-none">{{ Auth::user()->name[0] }}</span>
                     </a>
                 </div>
             </div>
@@ -169,20 +175,21 @@
                         <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             {{-- <img class="img-xs rounded-circle" src="images/faces/face8.jpg" alt="Profile image"> --}}
-                            <span class="logo-css">P</span>
+                            <span class="logo-css">{{ Auth::user()->name[0] }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                             <div class="dropdown-header text-center">
                                 {{-- <img class="img-md rounded-circle" src="images/faces/face8.jpg" alt="Profile image"> --}}
                                 <span>PARROQUIA <b>SFG</b></span>
-                                <p class="mb-1 mt-3 font-weight-semibold">Allen Moreno</p>
-                                <p class="fw-light text-muted mb-0">allenmoreno@gmail.com</p>
+                                <p class="mb-1 mt-3 font-weight-semibold">{{ Auth::user()->name }}</p>
+                                <p class="fw-light text-muted mb-0">{{ Auth::user()->email }}</p>
                             </div>
-                            <a class="dropdown-item">
+                            <a href="{{ route('user.profile') }}" class="dropdown-item">
                                 <i class="fas fa-user me-2 ico-xs-dropdown" style=""></i>
                                 Mi perfil
                             </a>
-                            <a class="dropdown-item">
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); cerrar_sesion();">
                                 <i class="fas fa-power-off me-2 ico-xs-dropdown"></i>
                                 Cerrar Sesión
                             </a>
@@ -190,8 +197,12 @@
                     </li>
                 </ul>
                 {{--  --}}
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+                {{--  --}}
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
-                    data-bs-toggle="offcanvas">
+                    onclick="mostrar_menu();">
                     <span class="mdi mdi-menu"></span>
                 </button>
             </div>
@@ -240,6 +251,48 @@
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
     {{-- Sweetalert --}}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{--  --}}
+    <script>
+        const cerrar_sesion = () => {
+
+            Swal.fire({
+                title: 'Cerrar Sesión',
+                text: '¿Deseas continuar?',
+                icon: 'question',
+                showConfirmButton: false,
+                cancelButtonText: "Cancelar",
+                showCancelButton: true,
+                showDenyButton: true,
+                denyButtonText: 'Si, deseo salir',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isDenied) {
+                    //
+                    const form_logout = document.getElementById("logout-form");
+                    form_logout.submit();
+                }
+            })
+
+        }
+        const lanzar_toast = (icon, text) => {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: icon,
+                title: text,
+            })
+        }
+    </script>
     @yield('js')
 </body>
 

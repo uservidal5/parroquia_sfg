@@ -3,6 +3,8 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,5 +33,12 @@ Route::get('/estudiantes/{perfil}', [PerfilController::class, 'show'])->name("es
 Route::get('/estudiantes/editar/{perfil}', [PerfilController::class, 'edit'])->name("estudiantes.edit");
 Route::put('/estudiantes/editar/{perfil}', [PerfilController::class, 'update'])->name("estudiantes.update");
 Route::delete('/estudiantes/{perfil}', [PerfilController::class, 'destroy'])->name("estudiantes.delete");
-
+// Mi Perfil
+Route::get('/mi_perfil', [UserController::class, 'mi_perfil'])->name("user.profile");
+Route::put('/actualizar_datos_personales', [UserController::class, 'actualizar_datos_personales'])->name("user.actualizar_datos_personales");
+Route::put('/cambiar_clave_acceso', [UserController::class, 'cambiar_clave_acceso'])->name("user.cambiar_clave_acceso");
 // PUBLIC
+
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

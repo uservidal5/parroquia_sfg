@@ -1,4 +1,5 @@
 @extends('template.base_simple')
+
 @section('page_title')
     Login | Parroquia San Francisco de Guallabamba
 @endsection
@@ -28,32 +29,49 @@
                                 </div>
                                 <div class="col-12 mb-4">
                                     <span class="fw-light text-info">
-                                        <a href="{{ route('dashboard') }}" class="text-info">Inicia sesión para
-                                            continuar.</a>
+                                        Inicia sesión para continuar.
                                     </span>
                                 </div>
                             </div>
-                            <form action="" class="form-row">
+                            <form action="{{ route('login') }}" method="POST" class="form-row">
+                                @csrf
                                 <div class="col-12 mb-4">
-                                    <input type="email" name="" id="" class="form-control form-control-lg"
-                                        placeholder="Correo">
+                                    <input type="email" name="email"
+                                        class="form-control form-control-lg @error('email') is-invalid @enderror"
+                                        placeholder="Correo" value="{{ old('email') }}" required autocomplete="email"
+                                        autofocus>
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="col-12 mb-4">
-                                    <input type="password" name="" id=""
-                                        class="form-control form-control-lg" placeholder="Contraseña">
+                                    <input type="password"
+                                        class="form-control form-control-lg @error('password') is-invalid @enderror"
+                                        placeholder="Contraseña" name="password" required autocomplete="current-password">
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="col-12 mb-4 px-2">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                        <label class="form-check-label text-muted" for="defaultCheck1">
+                                        <input class="form-check-input" type="checkbox" name="remember" id="remember"
+                                            {{ old('remember') ? 'checked' : '' }}>
+                                        <label class="form-check-label text-muted" for="remember">
                                             Recuerdame
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-12 mb-4 text-right">
-                                    <a href="" class="btn btn-link text-info">
-                                        ¿Olvidó su contraseña?
-                                    </a>
+                                    @if (Route::has('password.request'))
+                                        <a class="btn btn-link text-info" href="{{ route('password.request') }}">
+                                            ¿Olvidó su contraseña?
+                                        </a>
+                                    @endif
+
                                     <button type="submit" class="btn btn-dark">
                                         Ingresar
                                     </button>
