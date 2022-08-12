@@ -15,10 +15,10 @@ class CreatePerfilsTable extends Migration
     {
         Schema::create('perfils', function (Blueprint $table) {
             $table->id();
-            $table->string('cedula_per', 10);
-            $table->string('apellido_per');
-            $table->string('nombre_per');
-            $table->date('f_nacimiento_per');
+            $table->string('cedula_per', 10)->nullable(true);
+            $table->string('apellido_per')->nullable(true);
+            $table->string('nombre_per')->nullable(true);
+            $table->date('f_nacimiento_per')->nullable(true);
             $table->string('barrio_per')->nullable(true);
             $table->string('direccion_per')->nullable(true);
             $table->string('correo_per')->nullable(true);

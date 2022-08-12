@@ -6,6 +6,7 @@ use App\Models\Perfil;
 use App\Http\Requests\StorePerfilRequest;
 use App\Http\Requests\UpdatePerfilRequest;
 use App\Models\InformacionParental;
+use App\Models\Ficha;
 
 class PerfilController extends Controller
 {
@@ -67,6 +68,10 @@ class PerfilController extends Controller
         $info_madre->save();
 
         // FICHA
+        $new_ficha = new Ficha();
+        $new_ficha->perfil_id = $new_perfil->id;
+        $new_ficha->save();
+
         return redirect(route('estudiantes.edit', ['perfil' => $new_perfil]));
     }
 
@@ -99,6 +104,9 @@ class PerfilController extends Controller
         $data["madre"] = InformacionParental::where("perfil_id", $perfil->id)
             ->where("tipo_parental_inf", "MADRE")
             ->first();
+
+            $data["ficha"] = Ficha::where("perfil_id", $perfil->id)            
+            ->first();    
         // echo json_encode($data);
         return view("dashboard.estudiantes.edit", $data);
     }
