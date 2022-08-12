@@ -14,25 +14,31 @@
                 <a class="nav-link" href="#">Matriculas</a>
             </li>
             <li
-                class="nav-item {{ request()->routeIs('acceso_estudiantes') || request()->is('acceso_estudiantes/*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('acceso_estudiantes') }}">Acceso Estudiantes</a>
+                class="nav-item {{ request()->routeIs('acceso_estudiantes') ||
+                request()->is('acceso_estudiantes/*') ||
+                request()->routeIs('inicio_estudiante.index') ||
+                request()->is('panel_estudiante/*')
+                    ? 'active'
+                    : '' }}">
+                <a class="nav-link" href="{{ route('acceso_estudiantes', ['type' => 'login']) }}">Acceso Estudiantes</a>
             </li>
         </ul>
         <div>
             <!-- Authentication Links -->
-            @guest
-                @if (Route::has('login'))
-                    <a href="{{ route('login') }}" class="btn btn-outline-info">
-                        Iniciar Sesión
-                    </a>
-                @endif
+            @if (!session('idPerfilLogin'))
+                @guest
+                    @if (Route::has('login'))
+                        <a href="{{ route('login') }}" class="btn btn-outline-info">
+                            Iniciar Sesión
+                        </a>
+                    @endif
 
-                @if (Route::has('register'))
-                    <a class="btn btn-link text-white" href="{{ route('register') }}">Registrate</a>
-                @endif
-            @else
-                <a class="btn btn-link text-white" href="{{ route('dashboard') }}">Ir al dashboard</a>
-                {{-- <div class="nav-item dropdown">
+                    @if (Route::has('register'))
+                        <a class="btn btn-link text-white" href="{{ route('register') }}">Registrate</a>
+                    @endif
+                @else
+                    <a class="btn btn-link text-white" href="{{ route('dashboard') }}">Ir al dashboard</a>
+                    {{-- <div class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->name }}
@@ -50,7 +56,8 @@
                         </form>
                     </div>
                 </div> --}}
-            @endguest
+                @endguest
+            @endif
 
         </div>
     </div>

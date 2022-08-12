@@ -17,10 +17,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// PUBLIC
 Route::get('/', [PublicController::class, 'index'])->name("home");
 Route::get('/login', [PublicController::class, 'login'])->name("login");
-Route::get('/acceso_estudiantes', [PublicController::class, 'acceso_estudiantes'])->name("acceso_estudiantes");
+//
+Route::get('/acceso_estudiantes/{type}', [PublicController::class, 'acceso_estudiantes'])->name("acceso_estudiantes");
+Route::post('/acceso_estudiantes', [PublicController::class, 'public_estudiante_store'])->name("public_estudiante.store");
+Route::post('/login_estudiantes', [PublicController::class, 'public_estudiante_login'])->name("public_estudiante.login");
+// HA HECHO LOGIN
+Route::get('/panel_estudiante', [PublicController::class, 'inicio_estudiante'])->name("inicio_estudiante.index")->middleware("auth.perfil");
+Route::post('/logout_estudiantes', [PublicController::class, 'logout_estudiante'])->name("inicio_estudiante.logout")->middleware("auth.perfil");
 // Route::get('/', [PublicController::class, 'index'])->name("home");
 // PRIVATE
 // DASHBOARD
@@ -37,7 +43,7 @@ Route::delete('/estudiantes/{perfil}', [PerfilController::class, 'destroy'])->na
 Route::get('/mi_perfil', [UserController::class, 'mi_perfil'])->name("user.profile");
 Route::put('/actualizar_datos_personales', [UserController::class, 'actualizar_datos_personales'])->name("user.actualizar_datos_personales");
 Route::put('/cambiar_clave_acceso', [UserController::class, 'cambiar_clave_acceso'])->name("user.cambiar_clave_acceso");
-// PUBLIC
+
 
 Auth::routes();
 
