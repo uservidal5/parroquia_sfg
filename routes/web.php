@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\InformacionParentalController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -44,6 +45,7 @@ Route::get('/mi_perfil', [UserController::class, 'mi_perfil'])->name("user.profi
 Route::put('/actualizar_datos_personales', [UserController::class, 'actualizar_datos_personales'])->name("user.actualizar_datos_personales");
 Route::put('/cambiar_clave_acceso', [UserController::class, 'cambiar_clave_acceso'])->name("user.cambiar_clave_acceso");
 
+Route::apiResource("/informacion_parental", InformacionParentalController::class);
 
 Auth::routes();
 

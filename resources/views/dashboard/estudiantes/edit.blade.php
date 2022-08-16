@@ -35,11 +35,11 @@
             <div class="col-12 col-md-12 mx-auto">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link  active" id="home-tab" data-toggle="tab" data-target="#home" type="button"
+                        <button class="nav-link" id="home-tab" data-toggle="tab" data-target="#home" type="button"
                             role="tab" aria-controls="home" aria-selected="true">Perfil</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link " id="profile-tab" data-toggle="tab" data-target="#profile" type="button"
+                        <button class="nav-link active" id="profile-tab" data-toggle="tab" data-target="#profile" type="button"
                             role="tab" aria-controls="profile" aria-selected="false">Información Parental</button>
                     </li>
                     <li class="nav-item" role="presentation">
@@ -48,7 +48,7 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <form action="{{ route('estudiantes.update', ['perfil' => $perfil]) }}" method="POST"
                             class="form-row" id="form-edit-student">
                             @csrf
@@ -102,10 +102,12 @@
                             </div>
                         </form>
                     </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <form action="" class="form-row">
+                                <form action="{{route('informacion_parental.update',['informacion_parental'=>$padre])}}"id="form-padre" class="form-row" method="POST">
+                                    @csrf
+                                    @method("PUT")
                                     <div class="col-12 mb-4">
                                         <div class="d-flex justify-content-around align-items-center">
                                             <div>
@@ -113,7 +115,7 @@
                                             </div>
                                             <div>
                                                 <label class="switch">
-                                                    <input checked type="checkbox" name="estado_inf"
+                                                    <input  type="checkbox" {{ $padre->estado_inf ? 'checked': '' }} name="estado_inf"
                                                         id="estado_inf_padre" value="1">
                                                     <span class="slider round"></span>
                                                 </label>
@@ -123,15 +125,15 @@
                                     </div>
                                     <div class="form-padre col-12 col-md-6 mb-4">
                                         <label for=""><b>APELLIDOS</b></label>
-                                        <input type="text" class="form-control" value="{{ $padre->apellido_inf }}">
+                                        <input type="text" class="form-control" name="apellido_inf" value="{{ $padre->apellido_inf }}">
                                     </div>
                                     <div class="form-padre col-12 col-md-6 mb-4">
                                         <label for=""><b>NOMBRES</b></label>
-                                        <input type="text" class="form-control" value="{{ $padre->nombre_inf }}">
+                                        <input type="text" class="form-control" name="nombre_inf" value="{{ $padre->nombre_inf }}">
                                     </div>
                                     <div class="form-padre col-12 col-md-6 mb-4">
                                         <label for=""><b># CELULAR</b></label>
-                                        <input type="text" class="form-control" value="{{ $padre->celular_inf }}">
+                                        <input type="text" class="form-control" name="celular_inf" value="{{ $padre->celular_inf }}">
                                     </div>
                                     <div class="form-padre col-12 col-md-6 mb-4">
                                         <label for=""><b>BAUTIZO</b></label>
@@ -155,12 +157,12 @@
                                             <label>
                                                 SI
                                                 <input {{ $padre->comunion_inf == 1 ? 'checked' : '' }} type="radio"
-                                                    name="comunion_inf" id="">
+                                                    name="comunion_inf" id="" value="1">
                                             </label>
                                             <label>
                                                 NO
                                                 <input {{ $padre->comunion_inf == 0 ? 'checked' : '' }} type="radio"
-                                                    name="comunion_inf" id="">
+                                                    name="comunion_inf" id="" value="0">
                                             </label>
                                         </div>
                                     </div>
@@ -170,12 +172,12 @@
                                             <label>
                                                 SI
                                                 <input {{ $padre->confirmacion_inf == 1 ? 'checked' : '' }} type="radio"
-                                                    name="confirmacion_inf" id="">
+                                                    name="confirmacion_inf" id="" value="1">
                                             </label>
                                             <label>
                                                 NO
                                                 <input {{ $padre->confirmacion_inf == 0 ? 'checked' : '' }} type="radio"
-                                                    name="confirmacion_inf" id="">
+                                                    name="confirmacion_inf" id="" value="0">
                                             </label>
                                         </div>
                                     </div>
@@ -185,25 +187,32 @@
                                             <label>
                                                 SI
                                                 <input {{ $padre->matrimonio_inf == 1 ? 'checked' : '' }} type="radio"
-                                                    name="matrimonio_inf" id="si_matrimonio_inf_padre">
+                                                    name="matrimonio_inf" id="si_matrimonio_inf_padre" value="1">
                                             </label>
                                             <label>
                                                 NO
                                                 <input {{ $padre->matrimonio_inf == 0 ? 'checked' : '' }} type="radio"
-                                                    name="matrimonio_inf" id="no_matrimonio_inf_padre">
+                                                    name="matrimonio_inf" id="no_matrimonio_inf_padre" value="0">
                                             </label>
                                         </div>
                                     </div>
                                     <div class="select-padre-estado_civil_inf form-padre col-12 col-md-6 mb-4">
                                         <label for=""><b>ESTADO CIVIL</b></label>
                                         <select name="estado_civil_inf" id="" class="form-control">
-                                            <option value="SOLTERO">SOLTERO</option>
-                                            <option value="UNION_LIBRE">UNION LIBRE</option>
-                                            <option value="DIVORCIADO">DIVORCIADO</option>
-                                            <option value="VIUDO">VIUDO</option>
+                                            <option {{ $padre->estado_civil_inf == "SOLTERO" ? 'selected' : '' }} value="SOLTERO">SOLTERO</option>
+                                            <option {{ $padre->estado_civil_inf == "UNION_LIBRE" ? 'selected' : '' }} value="UNION_LIBRE">UNION LIBRE</option>
+                                            <option {{ $padre->estado_civil_inf == "DIVORCIADO" ? 'selected' : '' }} value="DIVORCIADO">DIVORCIADO</option>
+                                            <option {{ $padre->estado_civil_inf == "VIUDO" ? 'selected' : '' }} value="VIUDO">VIUDO</option>
                                         </select>
                                     </div>
+                                    <div class="col-12 mb-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save mr-2"></i>
+                                        GUARDAR
+                                    </button>
+                                </div>
                                 </form>
+                                
                             </div>
                             {{--  --}}
                             <div class="col-12 col-md-6">
@@ -502,7 +511,7 @@
         });
         //
 
-        form_ficha("ficha");
+        // form_ficha("ficha");
 
 
         $("#btn-edit-student").click((e) => {
