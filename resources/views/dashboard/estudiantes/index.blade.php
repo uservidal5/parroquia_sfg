@@ -49,7 +49,7 @@
                                             type="button" class="btn btn-plain px-0 mx-2">
                                             <i class="fas fa-eye"></i>
                                         </button>
-                                        <a href="{{ route('estudiantes.edit', ['perfil' => $estudiante]) }}"
+                                        <a href="{{ route('estudiantes.edit', ['perfil' => $estudiante, 'tab' => 'perfil']) }}"
                                             class="btn btn-plain px-0 mx-2">
                                             <i class="fas fa-pen"></i>
                                         </a>

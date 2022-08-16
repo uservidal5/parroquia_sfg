@@ -294,6 +294,7 @@
         }
     </script>
     @yield('js')
+    @stack('js_footer')
 </body>
 
 </html>

@@ -92,9 +92,10 @@ class PerfilController extends Controller
      * @param  \App\Models\Perfil  $perfil
      * @return \Illuminate\Http\Response
      */
-    public function edit(Perfil $perfil)
+    public function edit(Perfil $perfil, $tab)
     {
         //
+        $data["tab"] = $tab;
         $data["perfil"] = $perfil;
 
         $data["padre"] = InformacionParental::where("perfil_id", $perfil->id)
@@ -105,8 +106,8 @@ class PerfilController extends Controller
             ->where("tipo_parental_inf", "MADRE")
             ->first();
 
-            $data["ficha"] = Ficha::where("perfil_id", $perfil->id)            
-            ->first();    
+        $data["ficha"] = Ficha::where("perfil_id", $perfil->id)
+            ->first();
         // echo json_encode($data);
         return view("dashboard.estudiantes.edit", $data);
     }
@@ -122,7 +123,7 @@ class PerfilController extends Controller
     {
         //
         $perfil->update($request->all());
-        return back();
+        return back()->with(["status" => "ok", "message" => "Perfil actualizado con éxito!"]);
         // return redirect(route("estudiantes.index"));
     }
 

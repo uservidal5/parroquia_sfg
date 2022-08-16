@@ -15,8 +15,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-10 mx-auto">
-                <form action="{{ route('estudiantes.store') }}" method="POST" class="form-row needs-validation" novalidate
-                    id="form-new-student" novalidate>
+                <form action="{{ route('estudiantes.store') }}" method="POST" class="form-row">
                     @csrf
                     @method('POST')
                     <div class="col-12 mb-4">
@@ -25,52 +24,113 @@
                             ATRAS
                         </a>
                     </div>
-                    <div class="col-12 col-md-12 mb-4">
+                    <div class="col-12 col-md-6 mb-4">
                         <label for=""><b>CÉDULA</b></label>
-                        <input type="text" name="cedula_per" id="cedula_per" minlength="10" maxlength="10"
-                            class="form-control" required>
-                        <div class="valid-feedback">
-                            Es una cédula autentica.
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 mb-4">
-                        <label for=""><b>APELLIDOS</b></label>
-                        <input type="text" name="apellido_per" id="apellido_per" class="form-control" required>
-                    </div>
-                    <div class="col-12 col-md-6 mb-4">
-                        <label for=""><b>NOMBRES</b></label>
-                        <input type="text" name="nombre_per" id="nombre_per" class="form-control" required>
-                    </div>
-                    <div class="col-12 col-md-6 mb-4">
-                        <label for=""><b>FECHA NACIMIENTO</b></label>
-                        <input type="date" name="f_nacimiento_per" id="f_nacimiento_per" class="form-control" required>
-                    </div>
-                    <div class="col-12 col-md-6 mb-4">
-                        <label for=""><b>BARRIO</b></label>
-                        <select name="barrio_per" id="barrio_per" class="form-control">
-                            <option value="Centro de Guayllabamba">Centro de Guayllabamba</option>
-                            <option value="Chaquibamba">Chaquibamba</option>
-                            <option value="Los Duques">Los Duques</option>
-                            <option value="San Pedro">San Pedro</option>
-                            <option value="San Juan">San Juan</option>
-                            <option value="Doña Ana">Doña Ana</option>
-                        </select>
-                    </div>
-                    <div class="col-12 col-md-12 mb-4">
-                        <label for=""><b>DIRECCIÓN</b></label>
-                        <input type="text" name="direccion_per" id="direccion_per" class="form-control">
+                        <input type="text" name="cedula_per" id="cedula_per"
+                            class="form-control @error('cedula_per') is-invalid @enderror" value="{{ old('cedula_per') }}">
+                        @error('cedula_per')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="col-12 col-md-6 mb-4">
                         <label for=""><b>CORREO</b></label>
-                        <input type="email" name="correo_per" id="correo_per" class="form-control">
+                        <input type="email" name="correo_per" id="correo_per" value="{{ old('correo_per') }}"
+                            class="form-control @error('correo_per') is-invalid @enderror">
+                        @error('correo_per')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="col-12 col-md-6 mb-4">
-                        <label for=""><b>CONTRASEÑA</b></label>
-                        <input type="password" name="contrasenia_per" id="contrasenia_per" class="form-control">
-                        <div class="invalid-feedback">
-                            Este campo es requerido.
-                        </div>
+                        <label for=""><b>APELLIDOS</b></label>
+                        <input type="text" name="apellido_per" id="apellido_per" value="{{ old('apellido_per') }}"
+                            class="form-control @error('apellido_per') is-invalid @enderror">
+                        @error('apellido_per')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-12 col-md-6 mb-4">
+                        <label for=""><b>NOMBRES</b></label>
+                        <input type="text" name="nombre_per" id="nombre_per" value="{{ old('nombre_per') }}"
+                            class="form-control @error('nombre_per') is-invalid @enderror">
+                        @error('nombre_per')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-12 col-md-6 mb-4">
+                        <label for=""><b>FECHA NACIMIENTO</b></label>
+                        <input type="date" name="f_nacimiento_per" id="f_nacimiento_per"
+                            value="{{ old('f_nacimiento_per') }}"
+                            class="form-control @error('f_nacimiento_per') is-invalid @enderror">
+                        @error('f_nacimiento_per')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-12 col-md-6 mb-4">
+                        <label for=""><b>BARRIO</b></label>
+                        <select name="barrio_per" id="barrio_per"
+                            class="form-control @error('barrio_per') is-invalid @enderror">
+                            <option {{ old('barrio_per') === '' ? 'selected' : '' }} value="">VACÍO</option>
+                            <option
+                                {{ old('barrio_per') == 'Centro de Guayllabamba' ? 'selected' : '' }}value="Centro de Guayllabamba">
+                                Centro de Guayllabamba</option>
+                            <option {{ old('barrio_per') == 'Chaquibamba' ? 'selected' : '' }} value="Chaquibamba">
+                                Chaquibamba</option>
+                            <option {{ old('barrio_per') == 'Los Duques' ? 'selected' : '' }} value="Los Duques">Los Duques
+                            </option>
+                            <option {{ old('barrio_per') == 'San Pedro' ? 'selected' : '' }} value="San Pedro">San Pedro
+                            </option>
+                            <option {{ old('barrio_per') == 'San Juan' ? 'selected' : '' }} value="San Juan">San Juan
+                            </option>
+                            <option {{ old('barrio_per') == 'Doña Ana' ? 'selected' : '' }} value="Doña Ana">Doña Ana
+                            </option>
+                        </select>
+                        @error('barrio_per')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-12 col-md-12 mb-4">
+                        <label for=""><b>DIRECCIÓN</b></label>
+                        <textarea name="direccion_per" id="direccion_per"class="form-control @error('direccion_per') is-invalid @enderror">{{ old('direccion_per') }}</textarea>
+                        @error('direccion_per')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
 
+                    <div class="col-12 col-md-6 mb-4">
+                        <label for=""><b>CONTRASEÑA</b></label>
+                        <input type="password" name="contrasenia_per" id="contrasenia_per"
+                            class="form-control @error('contrasenia_per') is-invalid @enderror"
+                            value="{{ old('contrasenia_per') }}">
+                        @error('contrasenia_per')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-12 col-md-6 mb-4">
+                        <label for=""><b>REPITA CONTRASEÑA</b></label>
+                        <input type="password" name="re_contrasenia_per" id="re_contrasenia_per"
+                            class="form-control @error('re_contrasenia_per') is-invalid @enderror"
+                            value="{{ old('re_contrasenia_per') }}">
+                        @error('re_contrasenia_per')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="col-12 text-right mb-4">
                         <button type="submit" id="btn-new-student" class="btn btn-success text-white">
@@ -86,45 +146,13 @@
 
 @section('js')
     <script>
+        // Swal.fire({
+        // title: 'Listo!',
+        // text: 'Estudiante registrado con éxito.',
+        // icon: 'success',
+        // showConfirmButton: false,
+        // });
+        // lanzar_toast("error", "Información invalida!");
         // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (function() {
-            'use strict';
-            window.addEventListener('load', function() {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener('submit', function(event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                            lanzar_toast("error", "Información invalida!");
-                            // console.log(form.checkValidity());
-                            resultado_validacion("#correo_per", false, "Invalido!");
-                        } else {
-                            Swal.fire({
-                                title: 'Listo!',
-                                text: 'Estudiante registrado con éxito.',
-                                icon: 'success',
-                                showConfirmButton: false,
-                            });
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
-    </script>
-    <script>
-       function resultado_validacion(id_input, result, message) {
-            $(".input-validation").remove();
-            $(`${id_input}`).addClass(`is-${result ? 'valid' : 'invalid'}`);
-            $(`${id_input}`).parent().append(`
-            <div class="input-validation ${result ? 'valid' : 'invalid'}-feedback">
-                ${message}
-            </div>`);
-        }
-
-        //
     </script>
 @endsection

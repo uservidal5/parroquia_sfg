@@ -76,8 +76,9 @@ class InformacionParentalController extends Controller
     public function update(UpdateInformacionParentalRequest $request, InformacionParental $informacionParental)
     {
         //
+        $request["estado_inf"] = $request->estado_inf == "1" ? 1 : 0;
         $informacionParental->update($request->all());
-        return back();
+        return back()->with(["status" => "ok", "message" => "Perfil actualizado con éxito!"]);
     }
 
     /**

@@ -31,7 +31,7 @@ class StorePerfilRequest extends FormRequest
             "f_nacimiento_per" => "date",
             "correo_per" => "required|email|unique:perfils",
             "contrasenia_per" => "required",
-            // "re_contrasenia_per" => "required|same:contrasenia_per",
+            "re_contrasenia_per" => "required|same:contrasenia_per",
         ];
     }
     public function messages()

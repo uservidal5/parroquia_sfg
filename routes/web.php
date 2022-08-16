@@ -37,7 +37,7 @@ Route::get('/estudiantes', [PerfilController::class, 'index'])->name("estudiante
 Route::get('/estudiantes/create', [PerfilController::class, 'create'])->name("estudiantes.create");
 Route::post('/estudiantes/create', [PerfilController::class, 'store'])->name("estudiantes.store");
 Route::get('/estudiantes/{perfil}', [PerfilController::class, 'show'])->name("estudiantes.show");
-Route::get('/estudiantes/editar/{perfil}', [PerfilController::class, 'edit'])->name("estudiantes.edit");
+Route::get('/estudiantes/editar/{perfil}/{tab}', [PerfilController::class, 'edit'])->name("estudiantes.edit");
 Route::put('/estudiantes/editar/{perfil}', [PerfilController::class, 'update'])->name("estudiantes.update");
 Route::delete('/estudiantes/{perfil}', [PerfilController::class, 'destroy'])->name("estudiantes.delete");
 // Mi Perfil
