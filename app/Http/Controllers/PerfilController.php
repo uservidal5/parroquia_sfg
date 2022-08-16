@@ -72,7 +72,7 @@ class PerfilController extends Controller
         $new_ficha->perfil_id = $new_perfil->id;
         $new_ficha->save();
 
-        return redirect(route('estudiantes.edit', ['perfil' => $new_perfil]));
+        return redirect(route('estudiantes.edit', ['perfil' => $new_perfil, 'tab' => 'perfil']));
     }
 
     /**
