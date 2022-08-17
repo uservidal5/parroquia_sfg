@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CursoController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\InformacionParentalController;
@@ -46,6 +47,7 @@ Route::put('/actualizar_datos_personales', [UserController::class, 'actualizar_d
 Route::put('/cambiar_clave_acceso', [UserController::class, 'cambiar_clave_acceso'])->name("user.cambiar_clave_acceso");
 
 Route::apiResource("/informacion_parental", InformacionParentalController::class);
+Route::resource("/cursos", CursoController::class);
 
 Auth::routes();
 

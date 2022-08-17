@@ -37,6 +37,13 @@
                 <span class="menu-title">Estudiantes</span>
             </a>
         </li>
+        <li
+            class="nav-item {{ request()->routeIs('cursos.index') || request()->is('cursos/*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('cursos.index') }}">
+                <i class="menu-icon fas fa-book"></i>
+                <span class="menu-title">Cursos</span>
+            </a>
+        </li>
 
     </ul>
 </nav>
