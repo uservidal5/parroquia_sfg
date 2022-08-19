@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Curso;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,5 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call(UserSeeder::class);
+        $this->call(PerfilSeeder::class);
+        Curso::factory(100)->create();
+        //
     }
 }

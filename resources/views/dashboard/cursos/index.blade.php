@@ -9,6 +9,14 @@
         </li>
     </ul>
 @endsection
+@section('css')
+    <style>
+        .lazy {
+            opacity: 0;
+            transition: opacity ease-in-out .5s;
+        }
+    </style>
+@endsection
 
 @section('body')
     <div class="row">
@@ -20,7 +28,7 @@
         </div>
         <div class="col-12">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body lazy">
                     <div class="table-responsive">
                         <table class="table table-hover table-striped" id="tabla-cursos">
                             <thead>
@@ -43,7 +51,7 @@
                             <tbody>
                                 @foreach ($cursos as $curso)
                                     <tr>
-                                        <td>{{ $curso->id }}</td>
+                                        <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $curso->nombre_cur }}</td>
                                         <td class="text-center">
                                             @if ($curso->disponibilidad_cur)
@@ -61,13 +69,15 @@
                                         <td>{{ $curso->fecha_inicio_cur }}</td>
                                         <td>{{ $curso->responsable_cur }}</td>
                                         <td>{{ "$ " . $curso->costo_cur }}</td>
-                                        <td>{{ $curso->comentario_cur }}</td>
+                                        <td title="{{ $curso->comentario_cur }}">
+                                            {{ Str::limit($curso->comentario_cur, 20, '...') }}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <a href="{{ route('cursos.edit', ['curso' => $curso]) }}" class="btn">
+                                                <a href="{{ route('cursos.edit', ['curso' => $curso]) }}" class="btn p-0">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
-                                                <form action="{{ route('cursos.destroy', ['curso' => $curso]) }}"
+                                                <form class="d-inline-block" style="width: min-content!important;"
+                                                    action="{{ route('cursos.destroy', ['curso' => $curso]) }}"
                                                     method="POST" id="form-delete-{{ $curso->id }}">
                                                     @csrf
                                                     @method('delete')
@@ -91,8 +101,11 @@
 @endsection
 @section('js')
     <script>
-        $(() => {
-            $("#tabla-cursos").DataTable();
+        $(async () => {
+            await $("#tabla-cursos").DataTable({
+                // scrollX: true,
+            });
+            $(".card-body").css("opacity", "1");
         });
 
         function borrarCurso(id) {

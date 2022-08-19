@@ -4,6 +4,7 @@ use App\Http\Controllers\CursoController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\InformacionParentalController;
+use App\Http\Controllers\MatriculaController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -48,6 +49,7 @@ Route::put('/cambiar_clave_acceso', [UserController::class, 'cambiar_clave_acces
 
 Route::apiResource("/informacion_parental", InformacionParentalController::class);
 Route::resource("/cursos", CursoController::class);
+Route::apiResource("/matriculas", MatriculaController::class);
 
 Auth::routes();
 

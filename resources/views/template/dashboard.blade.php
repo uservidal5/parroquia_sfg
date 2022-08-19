@@ -217,7 +217,6 @@
                 <div class="content-wrapper">
                     @yield('body')
                 </div>
-                @yield('modals')
                 <!-- content-wrapper ends -->
                 <!-- partial:partials/_footer.html -->
                 <footer class="footer">
@@ -233,6 +232,7 @@
     </div>
     <!-- page-body-wrapper ends -->
     <!-- container-scroller -->
+    @yield('modals')
 
     <!-- plugins:js -->
     <script src="{{ asset('libs/dashboard') }}/vendors/js/vendor.bundle.base.js"></script>
@@ -292,6 +292,14 @@
                 title: text,
             })
         }
+
+
+        $('.modal').on('show.bs.modal', function(event) {
+            $('html').css('overflow', 'hidden');
+        }).on('hide.bs.modal', function(event) {
+            $('html').css('overflow', 'auto');
+
+        });
     </script>
     @yield('js')
     @stack('js_footer')

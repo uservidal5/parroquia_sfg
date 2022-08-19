@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Curso extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'nivel_cur',
         'nombre_cur',

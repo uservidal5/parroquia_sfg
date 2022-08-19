@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class FichaSeeder extends Seeder
+class MatriculaSeeder extends Seeder
 {
     /**
      * Run the database seeds.

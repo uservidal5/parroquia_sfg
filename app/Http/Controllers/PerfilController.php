@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Perfil;
 use App\Http\Requests\StorePerfilRequest;
 use App\Http\Requests\UpdatePerfilRequest;
+use App\Models\Curso;
 use App\Models\InformacionParental;
 use App\Models\Ficha;
+use App\Models\Matricula;
+use Illuminate\Support\Facades\Hash;
 
 class PerfilController extends Controller
 {
@@ -49,7 +52,7 @@ class PerfilController extends Controller
     public function store(StorePerfilRequest $request)
     {
         //encrypt and decrypt
-        $encriptada = encrypt($request->contrasenia_per);
+        $encriptada = Hash::make($request->contrasenia_per);
         $request["contrasenia_per"] = $encriptada;
 
         $new_perfil = new Perfil($request->all());
@@ -66,11 +69,6 @@ class PerfilController extends Controller
         $info_madre->tipo_parental_inf = "MADRE";
         $info_madre->perfil_id = $new_perfil->id;
         $info_madre->save();
-
-        // FICHA
-        $new_ficha = new Ficha();
-        $new_ficha->perfil_id = $new_perfil->id;
-        $new_ficha->save();
 
         return redirect(route('estudiantes.edit', ['perfil' => $new_perfil, 'tab' => 'perfil']));
     }
@@ -106,8 +104,28 @@ class PerfilController extends Controller
             ->where("tipo_parental_inf", "MADRE")
             ->first();
 
-        $data["ficha"] = Ficha::where("perfil_id", $perfil->id)
-            ->first();
+        $matriculado = Matricula::where("perfil_id", $perfil->id)
+            ->join('cursos', 'cursos.id', '=', 'matriculas.curso_id')
+            ->get();
+        $data["matriculado"] = $matriculado;
+
+        $ids_matriculas = array();
+        $niveles = array();
+
+        foreach ($matriculado as $key => $matricula) {
+            array_push($ids_matriculas, $matricula->id);
+            array_push($niveles, $matricula->nivel_cur);
+        }
+
+        $nivel = $niveles ? max($niveles) : 0;
+        $nivel++;
+        $data["inscribibles"] = Curso::where("disponibilidad_cur", 1)
+            ->where("nivel_cur", $nivel)
+            ->whereNotIn("id", $ids_matriculas)
+            ->whereYear("fecha_inicio_cur", date("Y"))
+            ->get();
+
+
         // echo json_encode($data);
         return view("dashboard.estudiantes.edit", $data);
     }
