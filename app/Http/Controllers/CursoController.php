@@ -96,6 +96,6 @@ class CursoController extends Controller
     {
         //
         $curso->delete();
-        return back();
+        return back()->with(["status" => "ok", "message" => "Registro eliminado con éxito!"]);
     }
 }

@@ -35,41 +35,131 @@
         </div>
         {{-- TABS --}}
         <div class="row mb-2">
-            <div class="col-12 col-md-4 text-center">
-                <a href="{{ route('estudiantes.edit', ['perfil' => $perfil, 'tab' => 'perfil']) }}"
-                    class="btn btn-block {{ $tab == 'perfil' ? 'btn-primary' : 'btn-outline-primary' }}">Perfil</a>
-            </div>
-            <div class="col-12 col-md-4 text-center">
-                <a href="{{ route('estudiantes.edit', ['perfil' => $perfil, 'tab' => 'parental']) }}"
-                    class="btn btn-block {{ $tab == 'parental' ? 'btn-primary' : 'btn-outline-primary' }}">Información
-                    Parental</a>
-            </div>
-            <div class="col-12 col-md-4 text-center">
-                <a href="{{ route('estudiantes.edit', ['perfil' => $perfil, 'tab' => 'matriculas']) }}"
-                    class="btn btn-block {{ $tab == 'matriculas' ? 'btn-primary' : 'btn-outline-primary' }}">Matrículas</a>
+            <div class="col-12 col-md-12">
+                <div class="d-flex flex-column flex-md-row">
+                    <a href="{{ route('estudiantes.edit', ['perfil' => $perfil, 'tab' => 'perfil']) }}"
+                        class="btn flex-fill mx-2 {{ $tab == 'perfil' || $tab == 'cambio_clave' ? 'btn-primary' : 'btn-outline-primary' }}">
+                        Perfil
+                    </a>
+                    <a href="{{ route('estudiantes.edit', ['perfil' => $perfil, 'tab' => 'parental_padre']) }}"
+                        class="btn flex-fill mx-2 {{ $tab == 'parental_padre' ? 'btn-primary' : 'btn-outline-primary' }}">
+                        Información del Padre
+                    </a>
+                    <a href="{{ route('estudiantes.edit', ['perfil' => $perfil, 'tab' => 'parental_madre']) }}"
+                        class="btn flex-fill mx-2 {{ $tab == 'parental_madre' ? 'btn-primary' : 'btn-outline-primary' }}">
+                        Información de la Madre
+                    </a>
+                    <a href="{{ route('estudiantes.edit', ['perfil' => $perfil, 'tab' => 'matriculas']) }}"
+                        class="btn flex-fill mx-2 {{ $tab == 'matriculas' ? 'btn-primary' : 'btn-outline-primary' }}">
+                        Matrículas
+                    </a>
+                </div>
             </div>
         </div>
 
         <div class="row">
             @if ($tab == 'perfil')
                 <div class="col-12">
-                    @include('dashboard.estudiantes.framentos.form-perfil', $perfil)
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h3 class="card-title my-2">DATOS INFORMATIVOS</h3>
+                        </div>
+                        <div class="card-body">
+                            <form id="form-perfil" action="{{ route('estudiantes.update', ['perfil' => $perfil]) }}"
+                                method="POST" class="form-row">
+                                @method('PUT')
+                                {{-- PARA VALIDAR FUERA DE ESTE REGISTRO --}}
+                                <input type="hidden" name="id" value="{{ $perfil->id }}">
+
+                                {{-- PLANTILLA FORM PERFIL --}}
+                                @include('dashboard.estudiantes.framentos.form-perfil', $perfil)
+                            </form>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <a href="{{ route('estudiantes.edit', ['perfil' => $perfil, 'tab' => 'cambio_clave']) }}">
+                                <i class="fas fa-key mr-2"></i>
+                                Cambio de contraseña
+                            </a>
+                            <button type="button" onclick="$('#form-perfil').submit();" class="btn btn-info text-white">
+                                <i class="fas fa-save mr-2"></i>
+                                ACTUALIZAR
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            @elseif($tab == 'parental')
-                <div class="col-12 col-md-6 mb-4">
-                    @include('dashboard.estudiantes.framentos.form-padre', $padre)
+            @elseif($tab == 'cambio_clave')
+                <div class="col-12">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h3 class="card-title my-2">CAMBIO DE CONTRASEÑA</h3>
+                        </div>
+                        <div class="card-body">
+                            <form id="form-cambio-clave"
+                                action="{{ route('estudiantes.cambio_clave', ['perfil' => $perfil]) }}" method="POST"
+                                class="form-row">
+                                @method('PUT')
+                                {{-- PLANTILLA FORM PERFIL --}}
+                                @include('dashboard.estudiantes.framentos.form-cambio-clave')
+                            </form>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <a class="btn btn-link" href="{{ route('estudiantes.edit', ['perfil' => $perfil, 'tab' => 'perfil']) }}">
+                                <i class="fas fa-angle-left mr-2"></i>
+                                Volver al perfil
+                            </a>
+                            <button type="button" onclick="$('#form-cambio-clave').submit();"
+                                class="btn btn-warning text-white">
+                                <i class="fas fa-key mr-2"></i>
+                                ACTUALIZAR
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-12 col-md-6 mb-4">
-                    @include('dashboard.estudiantes.framentos.form-madre', $madre)
+            @elseif($tab == 'parental_padre')
+                <div class="col-12 col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{{ route('informacion_parental.update', ['informacion_parental' => $padre]) }}"
+                                id="form-padre" class="form-row" method="POST">
+                                @method('PUT')
+                                {{--  --}}
+                                @include('dashboard.estudiantes.framentos.form-parental', [
+                                    'parental' => $padre,
+                                    'type' => 'padre',
+                                ])
+                                {{--  --}}
+                            </form>
+                        </div>
+                        <div class="card-footer text-end">
+                            <button type="button" onclick="$('#form-padre').submit();" class="btn btn-inverse-primary">
+                                <i class="fas fa-save mr-2"></i>
+                                ACTUALIZAR
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-12 text-center">
-                    <button type="button"
-                        onclick="$('#form-padre').submit();
-                    $('#form-madre').submit();"
-                        class="btn btn-primary">
-                        <i class="fas fa-save mr-2"></i>
-                        GUARDAR
-                    </button>
+            @elseif ($tab == 'parental_madre')
+                <div class="col-12 col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{{ route('informacion_parental.update', ['informacion_parental' => $madre]) }}"
+                                id="form-madre" class="form-row" method="POST">
+                                @method('PUT')
+                                {{--  --}}
+                                @include('dashboard.estudiantes.framentos.form-parental', [
+                                    'parental' => $madre,
+                                    'type' => 'madre',
+                                ])
+                                {{--  --}}
+                            </form>
+                        </div>
+                        <div class="card-footer text-end">
+                            <button type="button" onclick="$('#form-madre').submit();" class="btn btn-inverse-primary">
+                                <i class="fas fa-save mr-2"></i>
+                                ACTUALIZAR
+                            </button>
+                        </div>
+                    </div>
                 </div>
             @elseif ($tab == 'matriculas')
                 <div class="col-12">
@@ -128,7 +218,8 @@
                     </form>
                 </div>
                 <div class="modal-footer p-1">
-                    <button type="button" onclick="$('#form-editar-matricula').submit();" class="btn btn-inverse-primary">
+                    <button type="button" onclick="$('#form-editar-matricula').submit();"
+                        class="btn btn-inverse-primary">
                         <i class="fas fa-save mr-2"></i>
                         ACTUALIZAR
                     </button>
@@ -143,6 +234,7 @@
             const estado = $(`#si_matrimonio_inf_${tipo}`).prop("checked");
             if (estado) {
                 $(`.select-${tipo}-estado_civil_inf`).hide();
+                $(`.select-${tipo}-estado_civil_inf`).find("select>option:selected").removeAttr("selected");
             } else {
                 $(`.select-${tipo}-estado_civil_inf`).show();
             }
@@ -154,16 +246,13 @@
                 $(`.form-${tipo}`).fadeIn();
             } else {
                 $(`.form-${tipo}`).hide();
+                $(`.form-${tipo}`).find("input[type='text']").val("");
+                $(`.form-${tipo}`).find("input[type='radio'][value='0']").prop("checked", true);
             }
 
             toggle_matrimonio(tipo);
 
         }
-        //
-        $(() => {
-            form_parental("padre");
-            form_parental("madre");
-        })
         // form_ficha("ficha");
         //
     </script>

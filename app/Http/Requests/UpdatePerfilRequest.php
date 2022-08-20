@@ -24,27 +24,28 @@ class UpdatePerfilRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(Request $request)
+    public function rules()
     {
         $id = $this->input('id');
         return [
             "cedula_per" => ["required", "integer", new cedula, "unique:perfils,cedula_per," . $id],
-            "apellido_per" => "required",
-            "nombre_per" => "required",
-            "f_nacimiento_per" => "date",
+            "apellido_per" => "required|regex:/^[\pL\s\-\.]+$/u|max:255",
+            "nombre_per" => "required|regex:/^[\pL\s\-\.]+$/u|max:255",
+            "f_nacimiento_per" => "date|before_or_equal:" . date("d-m-Y"),
             "correo_per" => ["required", "email", "unique:perfils,correo_per," . $id],
-            // "contrasenia_per" => "required",
-            // "re_contrasenia_per" => "required|same:contrasenia_per",
         ];
     }
     public function messages()
     {
         return [
+            "before_or_equal" => "Fecha inválida",
             "required" => "Campo obligatorio",
             "cedula_per.integer" => "Cédula solo debe contener números.",
             "cedula_per.unique" => "Cédula ya registrada.",
             "re_contrasenia_per.same" => "Las contraseñas no coinciden.",
             "correo_per.unique" => "Correo Electrónico ya registrado.",
+            "regex" => "Ingrese solo letras",
+            "max" => "No debe superar los 255 caracteres",
         ];
     }
 }

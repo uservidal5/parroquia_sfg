@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CursoFactory extends Factory
 {
-    public $tipos = ["Bautizo", "Comunión", "Confirmación", "Matrimónio"];
+    public $tipos = ["Iniciación", "Comunión I", "Comunión II", "Año Bíblico", "Confirmación I", "Confirmación II"];
     /**
      * Define the model's default state.
      *

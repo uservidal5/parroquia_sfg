@@ -12,13 +12,13 @@
 
 @section('body')
     <div class="row">
-        <div class="col-10 mx-auto mb-4">
+        <div class="col-12 col-md-10 mx-auto mb-4">
             <a href="{{ route('cursos.index') }}" class="">
                 <i class="fas fa-angle-left mr-2"></i>
                 ATRAS
             </a>
         </div>
-        <div class="col-10 mx-auto">
+        <div class="col-12 col-md-10 mx-auto">
             <div class="card">
                 <div class="card-body">
                     <form action="{{ route('cursos.store') }}" method="POST" class="form-row" id="form-new-curso">

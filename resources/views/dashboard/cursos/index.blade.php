@@ -55,14 +55,14 @@
                                         <td>{{ $curso->nombre_cur }}</td>
                                         <td class="text-center">
                                             @if ($curso->disponibilidad_cur)
-                                                <label class="btn btn-rounded btn-inverse-success">
-                                                    <i class="fas fa-eye d-md-none"></i>
-                                                    <span class="d-none d-md-inline-block">Visible</span>
+                                                <i class="fas fa-eye text-success d-md-none"></i>
+                                                <label class="btn btn-rounded btn-inverse-success d-none d-md-inline-block">
+                                                    <span class="">Visible</span>
                                                 </label>
                                             @else
-                                                <label class="btn btn-rounded btn-inverse-danger">
-                                                    <i class="fas fa-eye-slash d-md-none"></i>
-                                                    <span class="d-none d-md-inline-block">Oculto</span>
+                                                <i class="fas fa-eye-slash text-danger d-md-none"></i>
+                                                <label class="btn btn-rounded btn-inverse-danger d-none d-md-inline-block">
+                                                    <span class="">Oculto</span>
                                                 </label>
                                             @endif
                                         </td>
@@ -121,10 +121,10 @@
             }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isDenied) {
-                    Swal.fire('Listo', 'Registro eliminado con éxito!', 'success');
                     $(`#form-delete-${id}`).submit();
                 }
             })
         }
     </script>
+    @include('dashboard.fragemtos.form-status')
 @endsection

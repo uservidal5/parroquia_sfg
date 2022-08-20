@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Perfil;
 use App\Http\Requests\StorePerfilRequest;
+use App\Http\Requests\UpdatePerfilContrasenaRequest;
 use App\Http\Requests\UpdatePerfilRequest;
 use App\Models\Curso;
 use App\Models\InformacionParental;
@@ -40,7 +41,8 @@ class PerfilController extends Controller
     public function create()
     {
         //
-        return view("dashboard.estudiantes.create");
+        $data["perfil"] = new Perfil();
+        return view("dashboard.estudiantes.create", $data);
     }
 
     /**
@@ -142,6 +144,15 @@ class PerfilController extends Controller
         //
         $perfil->update($request->all());
         return back()->with(["status" => "ok", "message" => "Perfil actualizado con éxito!"]);
+        // return redirect(route("estudiantes.index"));
+    }
+    public function cambio_clave(UpdatePerfilContrasenaRequest $request, Perfil $perfil)
+    {
+        //
+        $encriptada = Hash::make($request->contrasenia_per);
+        $request["contrasenia_per"] = $encriptada;
+        $perfil->update($request->all());
+        return redirect(route('estudiantes.edit', ['perfil' => $perfil, 'tab' => 'perfil']))->with(["status" => "ok", "message" => "Contraseña actualizada con éxito!"]);
         // return redirect(route("estudiantes.index"));
     }
 

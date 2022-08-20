@@ -25,6 +25,20 @@ class UpdateInformacionParentalRequest extends FormRequest
     {
         return [
             //
+            "nombre_inf" => "required_if:estado_inf,1|nullable|regex:/^[\pL\s\-]+$/u|max:255",
+            "apellido_inf" => "required_if:estado_inf,1|nullable|regex:/^[\pL\s\-]+$/u|max:255",
+            "celular_inf" => "required_if:estado_inf,1|nullable|numeric",
+        ];
+    }
+    public function messages()
+    {
+        # code...
+        return [
+            "required_if" => "Campo obligatorio",
+            "regex" => "Ingrese solo letras",
+            "numeric" => "Ingrese solo numeros",
+            "max" => "No debe superar los 255 caracteres",
+            "celular_inf.numeric" => "No es un número de teléfono",
         ];
     }
 }

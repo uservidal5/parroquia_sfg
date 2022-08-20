@@ -16,11 +16,11 @@ class CreateCursosTable extends Migration
         Schema::create('cursos', function (Blueprint $table) {
             $table->id();
             $table->integer("nivel_cur")->default(1);
-            $table->enum("nombre_cur", ["Bautizo", "Comunion", "Confirmación", "Matrimonio"]);
+            $table->enum("nombre_cur", ["Iniciación", "Comunión I", "Comunión II", "Año Bíblico", "Confirmación I", "Confirmación II"]);
             $table->boolean("disponibilidad_cur")->default(false);
             $table->date("fecha_inicio_cur");
             $table->string("responsable_cur")->nullable(true);
-            $table->float("costo_cur", 8, 2);
+            $table->float("costo_cur", 8, 2)->nullable(true);
             $table->longText("comentario_cur")->nullable(true);
             $table->timestamps();
         });

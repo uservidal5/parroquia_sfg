@@ -5,49 +5,58 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
-                        <ul>
-                            @foreach ($matriculado as $matricula)
-                                <div
-                                    class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
-                                    <div class="d-flex">
-                                        {{-- Ciclo / Nivel --}}
-                                        <span style="width: 2rem; height: 2rem;"
-                                            class="rounded-circle text-white bg-primary d-flex justify-content-center align-items-center">
-                                            {{ $matricula->nivel_cur }}
-                                        </span>
-                                        <div class="wrapper ms-3">
-                                            <p class="mb-1 fw-bold">{{ $matricula->nombre_cur }}</p>
+                        @foreach ($matriculado as $matricula)
+                            <div class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
+                                <div class="d-flex align-items-center">
+                                    {{-- Ciclo / Nivel --}}
+                                    <span style="width: 2rem; height: 2rem;"
+                                        class="rounded-circle text-white bg-primary d-flex justify-content-center align-items-center">
+                                        {{ $matricula->nivel_cur }}
+                                    </span>
+                                    <div class="wrapper ms-3">
+                                        <p class="mb-1">
+                                            <span class="fw-bold mr-2">
+                                                {{ $matricula->nombre_cur }}
+                                            </span>
+                                            <br>
                                             <small class="text-muted mb-0">{{ $matricula->responsable_cur }}</small>
-                                        </div>
-                                    </div>
-                                    <div class="text-end">
-                                        {{-- Acciones --}}
-                                        <form action="{{ route('matriculas.destroy', ['matricula' => $matricula]) }}"
-                                            id="form-delete-matricula-{{ $matricula->matricula_id }}" method="POST"
-                                            class="d-inline-block mb-2">
-                                            @csrf
-                                            @method('delete')
-                                        </form>
-                                        <button type="button" data-toggle="modal"
-                                            data-matricula="{{ $matricula->matricula_id }}"
-                                            data-estado="{{ $matricula->estado_mat }}"
-                                            data-pago="{{ $matricula->pago_mat }}" data-target="#modalMatricula"
-                                            class="btn p-0 mr-2">
-                                            <i class="fas fa-cog"></i>
-                                        </button>
-                                        <button type="button"
-                                            onclick="deleteMatricula('{{ $matricula->matricula_id }}')"
-                                            class="btn btn-inverse-danger btn-sm">
-                                            Remover
-                                        </button>
-                                        {{-- Fecha --}}
-                                        <div class="text-muted text-small ">
-                                            <b>Periodo:</b> {{ $matricula->fecha_inicio_cur }}
-                                        </div>
+                                        </p>
+                                        <span
+                                            class="badge px-2 py-1 badge-opacity-{{ $matricula->estado_mat == 'En curso' ? 'warning' : ($matricula->estado_mat == 'Finalizado' ? 'success' : 'danger') }}">
+                                            {{ $matricula->estado_mat }}
+                                        </span>
+                                        <span
+                                            class="badge px-2 py-1 badge-opacity-{{ $matricula->pago_mat ? 'success' : 'danger' }}">
+                                            {{ $matricula->pago_mat ? 'Pagado' : 'Sin pago' }}
+                                        </span>
                                     </div>
                                 </div>
-                            @endforeach
-                        </ul>
+                                <div class="text-end">
+                                    {{-- Acciones --}}
+                                    <form action="{{ route('matriculas.destroy', ['matricula' => $matricula]) }}"
+                                        id="form-delete-matricula-{{ $matricula->matricula_id }}" method="POST"
+                                        class="d-inline-block mb-2">
+                                        @csrf
+                                        @method('delete')
+                                    </form>
+                                    <button type="button" data-toggle="modal"
+                                        data-matricula="{{ $matricula->matricula_id }}"
+                                        data-estado="{{ $matricula->estado_mat }}"
+                                        data-pago="{{ $matricula->pago_mat }}" data-target="#modalMatricula"
+                                        class="btn p-0 mr-2">
+                                        <i class="fas fa-cog"></i>
+                                    </button>
+                                    <button type="button" onclick="deleteMatricula('{{ $matricula->matricula_id }}')"
+                                        class="btn btn-inverse-danger btn-sm">
+                                        Remover
+                                    </button>
+                                    {{-- Fecha --}}
+                                    <div class="text-muted text-small ">
+                                        <b>Periodo:</b> {{ $matricula->fecha_inicio_cur }}
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -59,43 +68,40 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
-                        <div class="">
-                            {{-- Item --}}
-                            @foreach ($inscribibles as $curso)
-                                <div
-                                    class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
-                                    <div class="d-flex">
-                                        {{-- Ciclo / Nivel --}}
-                                        <span style="width: 2rem; height: 2rem;"
-                                            class="rounded-circle text-white bg-primary d-flex justify-content-center align-items-center">
-                                            {{ $curso->nivel_cur }}
-                                        </span>
-                                        <div class="wrapper ms-3">
-                                            <p class="mb-1 fw-bold">{{ $curso->nombre_cur }}</p>
-                                            <small class="text-muted mb-0">{{ $curso->responsable_cur }}</small>
-                                        </div>
-                                    </div>
-                                    <div class="text-end">
-                                        {{-- Acciones --}}
-                                        <form action="{{ route('matriculas.store') }}"
-                                            id="form-new-matricula-{{ $curso->id }}" method="POST"
-                                            class="d-inline-block mb-2">
-                                            @csrf
-                                            <input type="hidden" name="perfil_id" value="{{ $perfil_id }}">
-                                            <input type="hidden" name="curso_id" value="{{ $curso->id }}">
-                                        </form>
-                                        <button type="button" onclick="newMatricula('{{ $curso->id }}')"
-                                            class="btn btn-outline-info btn-sm">
-                                            Inscribir
-                                        </button>
-                                        {{-- Fecha --}}
-                                        <div class="text-muted text-small ">
-                                            <b>Periodo:</b> {{ $curso->fecha_inicio_cur }}
-                                        </div>
+                        {{-- Item --}}
+                        @foreach ($inscribibles as $curso)
+                            <div class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
+                                <div class="d-flex">
+                                    {{-- Ciclo / Nivel --}}
+                                    <span style="width: 2rem; height: 2rem;"
+                                        class="rounded-circle text-white bg-primary d-flex justify-content-center align-items-center">
+                                        {{ $curso->nivel_cur }}
+                                    </span>
+                                    <div class="wrapper ms-3">
+                                        <p class="mb-1 fw-bold">{{ $curso->nombre_cur }}</p>
+                                        <small class="text-muted mb-0">{{ $curso->responsable_cur }}</small>
                                     </div>
                                 </div>
-                            @endforeach
-                        </div>
+                                <div class="text-end">
+                                    {{-- Acciones --}}
+                                    <form action="{{ route('matriculas.store') }}"
+                                        id="form-new-matricula-{{ $curso->id }}" method="POST"
+                                        class="d-inline-block mb-2">
+                                        @csrf
+                                        <input type="hidden" name="perfil_id" value="{{ $perfil_id }}">
+                                        <input type="hidden" name="curso_id" value="{{ $curso->id }}">
+                                    </form>
+                                    <button type="button" onclick="newMatricula('{{ $curso->id }}')"
+                                        class="btn btn-outline-info btn-sm">
+                                        Inscribir
+                                    </button>
+                                    {{-- Fecha --}}
+                                    <div class="text-muted text-small ">
+                                        <b>Periodo:</b> {{ $curso->fecha_inicio_cur }}
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
 
                 </div>

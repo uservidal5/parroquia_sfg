@@ -1,25 +1,31 @@
-<input type="hidden" name="nivel_cur" id="nivel_cur" value="0">
+<input type="hidden" name="nivel_cur" id="nivel_cur" value="{{ old('nivel_cur', $curso->nivel_cur) }}">
 <div class="col-12 col-md-4 mb-4">
-    <label>Inicio</label>
+    <label>Periodo de Inicio</label>
     <input type="date" class="form-control" value="{{ old('fecha_inicio_cur', $curso->fecha_inicio_cur) }}"
         name="fecha_inicio_cur">
 </div>
 <div class="col-12 col-md-4 mb-4">
-    <label>Nombre / Tipo</label>
+    <label>Curso</label>
     <select id="nombre_cur" class="form-control" name="nombre_cur">
-        <option value=""></option>
-        <option {{ old('nombre_cur', $curso->nombre_cur) == 'Bautizo' ? 'selected' : '' }} data-nivel="1"
-            value="Bautizo">Bautizo
+        <option value="" data-nivel="0"></option>
+        <option {{ old('nombre_cur', $curso->nombre_cur) == 'Iniciación' ? 'selected' : '' }} data-nivel="1"
+            value="Iniciación">Iniciación
         </option>
-        <option {{ old('nombre_cur', $curso->nombre_cur) == 'Comunion' ? 'selected' : '' }} data-nivel="2"
-            value="Comunion">Comunion
+        <option {{ old('nombre_cur', $curso->nombre_cur) == 'Comunión I' ? 'selected' : '' }} data-nivel="2"
+            value="Comunión I">Comunión I
         </option>
-        <option {{ old('nombre_cur', $curso->nombre_cur) == 'Confirmación' ? 'selected' : '' }} data-nivel="3"
-            value="Confirmación">
-            Confirmación</option>
-        <option {{ old('nombre_cur', $curso->nombre_cur) == 'Matrimonio' ? 'selected' : '' }} data-nivel="4"
-            value="Matrimonio">
-            Matrimonio</option>
+        <option {{ old('nombre_cur', $curso->nombre_cur) == 'Comunión II' ? 'selected' : '' }} data-nivel="3"
+            value="Comunión II">
+            Comunión II</option>
+        <option {{ old('nombre_cur', $curso->nombre_cur) == 'Año Bíblico' ? 'selected' : '' }} data-nivel="4"
+            value="Año Bíblico">
+            Año Bíblico</option>
+        <option {{ old('nombre_cur', $curso->nombre_cur) == 'Confirmación I' ? 'selected' : '' }} data-nivel="5"
+            value="Confirmación I">
+            Confirmación I</option>
+        <option {{ old('nombre_cur', $curso->nombre_cur) == 'Confirmación II' ? 'selected' : '' }} data-nivel="6"
+            value="Confirmación II">
+            Confirmación II</option>
     </select>
 </div>
 <div class="col-12 col-md-4 mb-4">
@@ -45,8 +51,14 @@
 <div class="col-12
         col-md-6 mb-4">
     <label>Costo</label>
-    <input type="number" placeholder="$ 0.00" min="0.00" max="10000.00" step="0.01"
-        class="form-control"value="{{ old('costo_cur', $curso->costo_cur) }}" name="costo_cur" />
+    <input type="number" placeholder="$ 0.00" min="0" max="10000.00" step="0.01"
+        class="form-control  @error('costo_cur') is-invalid @enderror"value="{{ old('costo_cur', $curso->costo_cur) }}"
+        name="costo_cur" />
+    @error('costo_cur')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+    @enderror
 </div>
 <div class="col-12 col-md-12 mb-4">
     <label>Comentario</label>

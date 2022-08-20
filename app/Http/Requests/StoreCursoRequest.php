@@ -25,14 +25,18 @@ class StoreCursoRequest extends FormRequest
     {
         return [
             //
-            "responsable_cur" => "required",
+            "responsable_cur" => "nullable|regex:/^[\pL\s\-\.]+$/u|max:255",
+            "costo_cur" => "nullable|numeric|min:0",
         ];
     }
     public function messages()
     {
         return [
             //
-            "responsable_cur.required" => "Campo obligatorio",
+            "min" => "Debe ser mayor a 0",
+            "max" => "No debe superar los 255 caracteres",
+            "regex" => "Ingrese solo letras",
+            "numeric" => "Ingrese solo numeros"
         ];
     }
 }
