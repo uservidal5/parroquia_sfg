@@ -122,7 +122,7 @@ class PerfilController extends Controller
         $nivel = $niveles ? max($niveles) : 0;
         $nivel++;
         $data["inscribibles"] = Curso::where("disponibilidad_cur", 1)
-            ->where("nivel_cur", $nivel)
+            //->where("nivel_cur", $nivel) //
             ->whereNotIn("id", $ids_matriculas)
             ->whereYear("fecha_inicio_cur", date("Y"))
             ->get();
