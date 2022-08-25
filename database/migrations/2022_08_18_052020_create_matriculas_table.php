@@ -16,7 +16,7 @@ class CreateMatriculasTable extends Migration
         Schema::create('matriculas', function (Blueprint $table) {
             $table->id("matricula_id");
             $table->boolean("pago_mat")->default(0);
-            $table->string("estado_mat")->enum(["En curso", "Finalizado", "Retirado"])->default("En curso");
+            $table->string("estado_mat")->enum(["En curso", "Aprobado", "Retirado"])->default("En curso");
             $table->longText("comentario_mat")->nullable(true);
             // Foraneos
             // Estudiante

@@ -28,6 +28,8 @@ class PerfilSeeder extends Seeder
         $new_perfil->direccion_per = "Cayambe, 10 de agosto";
         $new_perfil->correo_per = "alex@correo.com";
         $new_perfil->contrasenia_per = $password;
+        $new_perfil->tipo_representante_per = "Padre";
+        $new_perfil->telefono_representante_per = "0987654321";
         $new_perfil->save();
         // return $new_perfil->id;
         // PADRE

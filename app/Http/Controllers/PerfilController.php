@@ -166,6 +166,6 @@ class PerfilController extends Controller
     {
         //
         $perfil->delete();
-        return redirect(route("estudiantes.index"));
+        return back()->with(["status" => "ok", "message" => "Perfil eliminado con éxito!"]);
     }
 }

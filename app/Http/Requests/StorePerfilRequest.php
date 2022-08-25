@@ -32,6 +32,8 @@ class StorePerfilRequest extends FormRequest
             "correo_per" => "required|email|unique:perfils|max:255",
             "contrasenia_per" => "required|max:255",
             "re_contrasenia_per" => "required|same:contrasenia_per",
+            "tipo_representante_per" => "required",
+            "telefono_representante_per" => "required|max:10",
         ];
     }
     public function messages()

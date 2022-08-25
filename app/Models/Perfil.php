@@ -22,5 +22,8 @@ class Perfil extends Model
         'correo_per',
         'contrasenia_per',
         'estado_per',
+        'tipo_representante_per',
+        'telefono_representante_per',
+        'observacion_per',
     ];
 }

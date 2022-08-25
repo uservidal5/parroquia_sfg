@@ -202,15 +202,15 @@
                             <label for="">Estado del cursante</label>
                             <div class="btn-group">
                                 <label class="btn-estado en_curso btn">
-                                    <input type="radio" name="estado_mat" value="En curso" class="d-none1">
+                                    <input type="radio" name="estado_mat" value="En curso" class="mr-2">
                                     En curso
                                 </label>
                                 <label class="btn-estado finalizado btn">
-                                    <input type="radio" name="estado_mat" value="Finalizado" class="d-none1">
-                                    Finalizado
+                                    <input type="radio" name="estado_mat" value="Aprobado" class="mr-2">
+                                    Aprobado
                                 </label>
                                 <label class="btn-estado retirado btn">
-                                    <input type="radio" name="estado_mat" value="Retirado" class="d-none1">
+                                    <input type="radio" name="estado_mat" value="Retirado" class="mr-2">
                                     Retirado
                                 </label>
                             </div>
@@ -273,9 +273,9 @@
                     $("#modalMatricula").find(".en_curso").addClass("btn-inverse-info");
                     estados.filter('[value="En curso"]').attr('checked', true);
                     break;
-                case "Finalizado":
+                case "Aprobado":
                     $("#modalMatricula").find(".finalizado").addClass("btn-inverse-success");
-                    estados.filter('[value="Finalizado"]').attr('checked', true);
+                    estados.filter('[value="Aprobado"]').attr('checked', true);
                     break;
                 case "Retirado":
                     $("#modalMatricula").find(".retirado").addClass("btn-inverse-danger");

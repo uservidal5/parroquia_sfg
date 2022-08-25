@@ -11,7 +11,14 @@
         </li>
     </ul>
 @endsection
-
+@section('css')
+    <style>
+        .lazy {
+            opacity: 0;
+            transition: opacity ease-in-out .5s;
+        }
+    </style>
+@endsection
 @section('body')
     <div class="row">
         <div class="col-12 text-end mb-4">
@@ -21,56 +28,61 @@
             </a>
         </div>
         <div class="col-12">
-            <div class="table-responsive">
-                <table class="table table-hover" id="tabla-estudiantes">
-                    <thead>
-                        <tr>
-                            <th scope="col" style="max-width: 1.5rem;">#</th>
-                            <th scope="col">CI</th>
-                            <th scope="col">Apellido</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col" class="" style="max-width: 3rem;">
-                                <i class="fas fa-cog mr-2"></i>
-                                Acciones
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($estudiantes as $estudiante)
-                            <tr>
-                                <th scope="row">{{ $estudiante->id }}</th>
-                                <td>{{ $estudiante->cedula_per }}</td>
-                                <td>{{ $estudiante->apellido_per }}</td>
-                                <td>{{ $estudiante->nombre_per }}</td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        <button data-target="#modalEstudiante" data-toggle="modal"
-                                            data-url="{{ route('estudiantes.show', ['perfil' => $estudiante]) }}"
-                                            type="button" class="btn btn-plain px-0 mx-2">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                        <a href="{{ route('estudiantes.edit', ['perfil' => $estudiante, 'tab' => 'perfil']) }}"
-                                            class="btn btn-plain px-0 mx-2">
-                                            <i class="fas fa-pen"></i>
-                                        </a>
-                                        <form class="d-inline-block" method="POST" id="form-delete-{{ $estudiante->id }}"
-                                            action="{{ route('estudiantes.delete', ['perfil' => $estudiante]) }}">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="button" onclick="borrarEstudiante({{ $estudiante->id }});"
-                                                class="btn btn-plain px-0 mx-2 text-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
+            <div class="card">
+                <div class="card-body lazy">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="tabla-estudiantes">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="max-width: 1.5rem;">#</th>
+                                    <th scope="col">CI</th>
+                                    <th scope="col">Apellido</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col" class="" style="max-width: 3rem;">
+                                        <i class="fas fa-cog mr-2"></i>
+                                        Acciones
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($estudiantes as $estudiante)
+                                    <tr>
+                                        <th scope="row">{{ $estudiante->id }}</th>
+                                        <td>{{ $estudiante->cedula_per }}</td>
+                                        <td>{{ $estudiante->apellido_per }}</td>
+                                        <td>{{ $estudiante->nombre_per }}</td>
+                                        <td class="text-center">
+                                            <div class="btn-group">
+                                                <button data-target="#modalEstudiante" data-toggle="modal"
+                                                    data-url="{{ route('estudiantes.show', ['perfil' => $estudiante]) }}"
+                                                    type="button" class="btn btn-plain px-0 mx-2">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <a href="{{ route('estudiantes.edit', ['perfil' => $estudiante, 'tab' => 'perfil']) }}"
+                                                    class="btn btn-plain px-0 mx-2">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+                                                <form class="d-inline-block" method="POST"
+                                                    id="form-delete-{{ $estudiante->id }}"
+                                                    action="{{ route('estudiantes.delete', ['perfil' => $estudiante]) }}">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="button"
+                                                        onclick="borrarEstudiante({{ $estudiante->id }});"
+                                                        class="btn btn-plain px-0 mx-2 text-danger">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
 
-                    </tbody>
-                </table>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
 @endsection
@@ -149,10 +161,7 @@
             }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isDenied) {
-                    Swal.fire('Listo', 'Registro eliminado con éxito!', 'success');
-                    setTimeout(() => {
-                        $(`#form-delete-${id}`).submit();
-                    }, 2000);
+                    $(`#form-delete-${id}`).submit();
                 }
             })
         }
@@ -199,6 +208,7 @@
             $("#modal-loading").hide();
             $("#info-estudiante").fadeIn();
         });
+
         $('#modalEstudiante').on('hidden.bs.modal', function(event) {
             $('#cedula_per').text("");
             $('#apellido_per').text("");
@@ -213,7 +223,12 @@
             $("#info-estudiante").hide();
         });
 
-
-        $("#tabla-estudiantes").DataTable();
+        $(async () => {
+            await $("#tabla-estudiantes").DataTable({
+                // scrollX: true,
+            });
+            $(".card-body").css("opacity", "1");
+        });
     </script>
+    @include('dashboard.fragemtos.form-status')
 @endsection

@@ -1,12 +1,17 @@
 <input type="hidden" name="nivel_cur" id="nivel_cur" value="{{ old('nivel_cur', $curso->nivel_cur) }}">
 <div class="col-12 col-md-4 mb-4">
     <label>Periodo de Inicio</label>
-    <input type="date" class="form-control" value="{{ old('fecha_inicio_cur', $curso->fecha_inicio_cur) }}"
-        name="fecha_inicio_cur">
+    <input type="date" class="form-control @error('fecha_inicio_cur') is-invalid @enderror"
+        value="{{ old('fecha_inicio_cur', $curso->fecha_inicio_cur) }}" name="fecha_inicio_cur">
+    @error('fecha_inicio_cur')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+    @enderror
 </div>
 <div class="col-12 col-md-4 mb-4">
     <label>Curso</label>
-    <select id="nombre_cur" class="form-control" name="nombre_cur">
+    <select id="nombre_cur" class="form-control @error('nombre_cur') is-invalid @enderror" name="nombre_cur">
         <option value="" data-nivel="0"></option>
         <option {{ old('nombre_cur', $curso->nombre_cur) == 'Iniciación' ? 'selected' : '' }} data-nivel="1"
             value="Iniciación">Iniciación
@@ -27,6 +32,11 @@
             value="Confirmación II">
             Confirmación II</option>
     </select>
+    @error('nombre_cur')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+    @enderror
 </div>
 <div class="col-12 col-md-4 mb-4">
     <div class="d-flex mt-4 justify-content-center align-items-center">

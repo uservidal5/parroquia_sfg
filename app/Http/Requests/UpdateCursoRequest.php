@@ -25,6 +25,8 @@ class UpdateCursoRequest extends FormRequest
     {
         return [
             //
+            "fecha_inicio_cur" => "required",
+            "nombre_cur" => "required",
             "responsable_cur" => "nullable|regex:/^[\pL\s\-\.]+$/u|max:255",
             "costo_cur" => "nullable|numeric|min:0",
         ];
@@ -33,6 +35,7 @@ class UpdateCursoRequest extends FormRequest
     {
         return [
             //
+            "required" => "Campo obligatorio",
             "min" => "Debe ser mayor a 0",
             "regex" => "Ingrese solo letras",
             "numeric" => "Ingrese solo numeros",

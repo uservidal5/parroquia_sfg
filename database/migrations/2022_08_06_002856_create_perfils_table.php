@@ -23,6 +23,9 @@ class CreatePerfilsTable extends Migration
             $table->string('direccion_per')->nullable(true);
             $table->string('correo_per')->nullable(true);
             $table->string('contrasenia_per')->nullable(true);
+            $table->string('tipo_representante_per')->enum(["Padre", "Madre", "Hermano/a", "Tío/a", "Primo/a", "Abuelo/a", "Otro"])->nullable(true);
+            $table->string('telefono_representante_per')->nullable(true);
+            $table->longText('observacion_per')->nullable(true);
             $table->integer('estado_per')->default(1);
             $table->timestamps();
         });

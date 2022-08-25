@@ -132,6 +132,15 @@
         .slider.round:before {
             border-radius: 50%;
         }
+
+        /*  */
+        .circle {
+            display: flex;
+            width: 30px;
+            height: 30px;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
     @yield('css')
     <script>

@@ -1,4 +1,5 @@
 @extends('template.dashboard')
+
 @section('page_title')
     Cursos | Inicio
 @endsection
@@ -101,13 +102,6 @@
 @endsection
 @section('js')
     <script>
-        $(async () => {
-            await $("#tabla-cursos").DataTable({
-                // scrollX: true,
-            });
-            $(".card-body").css("opacity", "1");
-        });
-
         function borrarCurso(id) {
             Swal.fire({
                 title: 'Espera!',
@@ -125,6 +119,12 @@
                 }
             })
         }
+        $(async () => {
+            await $("#tabla-cursos").DataTable({
+                // scrollX: true,
+            });
+            $(".card-body").css("opacity", "1");
+        });
     </script>
     @include('dashboard.fragemtos.form-status')
 @endsection
