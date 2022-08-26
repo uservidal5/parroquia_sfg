@@ -20,6 +20,11 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             {{-- <button class="dropdown-item" type="button">Action</button> --}}
+                                            <a href="{{ route('matricula.generarPDF', ['matricula' => $matricula]) }}"
+                                                class="dropdown-item" target="_blank">
+                                                <i class="fas fa-file-pdf mr-2"></i>
+                                                Descargar PDF
+                                            </a>
                                             <button type="button" data-toggle="modal"
                                                 data-matricula="{{ $matricula->matricula_id }}"
                                                 data-estado="{{ $matricula->estado_mat }}"

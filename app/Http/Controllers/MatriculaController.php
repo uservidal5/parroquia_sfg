@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Matricula;
 use App\Http\Requests\StoreMatriculaRequest;
 use App\Http\Requests\UpdateMatriculaRequest;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Barryvdh\DomPDF\PDF;
 
 class MatriculaController extends Controller
 {
@@ -91,5 +93,15 @@ class MatriculaController extends Controller
         //
         $matricula->delete();
         return back()->with(["status" => "ok", "message" => "Matricula removida con éxito!"]);
+    }
+
+    public function documento_matricula(Matricula $matricula)
+    {
+        # code...
+        $data["matricula"] = $matricula;
+        $data["estudiante"] = $matricula->estudiante;
+        $data["curso"] = $matricula->curso;
+        $pdf = FacadePdf::loadView('dashboard.matriculas.filePDF', $data);
+        return $pdf->stream();
     }
 }

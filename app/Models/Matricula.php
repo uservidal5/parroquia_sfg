@@ -17,4 +17,15 @@ class Matricula extends Model
         'perfil_id',
         'curso_id',
     ];
+    // Relacion inversa
+    public function estudiante()
+    {
+        # code...
+        return $this->belongsTo('App\Models\Perfil', 'perfil_id');
+    }
+    public function curso()
+    {
+        # code...
+        return $this->belongsTo('App\Models\Curso', 'curso_id');
+    }
 }

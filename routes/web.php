@@ -54,4 +54,6 @@ Route::apiResource("/matriculas", MatriculaController::class);
 
 Auth::routes();
 
+Route::get('/matriculas/file/{matricula}', [MatriculaController::class, 'documento_matricula'])->name("matricula.generarPDF");
+
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

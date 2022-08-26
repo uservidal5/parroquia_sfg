@@ -69,7 +69,7 @@
                                         </td>
                                         <td>{{ $curso->fecha_inicio_cur }}</td>
                                         <td>{{ $curso->responsable_cur }}</td>
-                                        <td>{{ "$ " . $curso->costo_cur }}</td>
+                                        <td>{{ "$" . $curso->costo_cur }}</td>
                                         <td title="{{ $curso->comentario_cur }}">
                                             {{ Str::limit($curso->comentario_cur, 20, '...') }}</td>
                                         <td>
