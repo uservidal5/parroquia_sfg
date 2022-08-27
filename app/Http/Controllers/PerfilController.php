@@ -108,6 +108,7 @@ class PerfilController extends Controller
 
         $matriculado = Matricula::where("perfil_id", $perfil->id)
             ->join('cursos', 'cursos.id', '=', 'matriculas.curso_id')
+            ->orderBy("cursos.nivel_cur", "desc")
             ->get();
         $data["matriculado"] = $matriculado;
 
@@ -122,9 +123,11 @@ class PerfilController extends Controller
         $nivel = $niveles ? max($niveles) : 0;
         $nivel++;
         $data["inscribibles"] = Curso::where("disponibilidad_cur", 1)
-            //->where("nivel_cur", $nivel) //
+            // ->where("nivel_cur", $nivel) //
             ->whereNotIn("id", $ids_matriculas)
             ->whereYear("fecha_inicio_cur", date("Y"))
+            ->orderBy("cursos.nivel_cur", "desc")
+            ->orderBy("cursos.fecha_inicio_cur", "desc")
             ->get();
 
 

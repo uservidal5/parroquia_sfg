@@ -20,7 +20,7 @@
                                 </div>
                                 <div class="col-12 mb-4">
                                     <h4 class="text-muted">Parroquia <span class="text-info">San Francisco de
-                                            Guallabamba</span></h4>
+                                            Guayllabamba</span></h4>
                                 </div>
                                 <div class="col-12">
                                     <span class="fw-semi-bold text-muted">
