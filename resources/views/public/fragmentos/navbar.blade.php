@@ -10,11 +10,11 @@
             <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('home') }}">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item ">
+            <li class="d-none nav-item ">
                 <a class="nav-link" href="#">Matriculas</a>
             </li>
             <li
-                class="nav-item {{ request()->routeIs('acceso_estudiantes') ||
+                class="d-none nav-item {{ request()->routeIs('acceso_estudiantes') ||
                 request()->is('acceso_estudiantes/*') ||
                 request()->routeIs('inicio_estudiante.index') ||
                 request()->is('panel_estudiante/*')

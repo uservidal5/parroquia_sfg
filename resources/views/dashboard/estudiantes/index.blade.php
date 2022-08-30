@@ -7,7 +7,7 @@
 @section('name_section')
     <ul class="navbar-nav">
         <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-            <h1 class="welcome-text text-uppercase">Gestión de <span class="text-black fw-bold">Estudiantes</span></h1>
+            <h1 class="welcome-text text-uppercase">Gestión de <span class="text-black fw-bold">Estudiantes de Catequesis</span></h1>
         </li>
     </ul>
 @endsection
@@ -222,10 +222,11 @@
             $("#modal-loading").show();
             $("#info-estudiante").hide();
         });
-
+        
         $(async () => {
             await $("#tabla-estudiantes").DataTable({
                 // scrollX: true,
+                language: espanol,
             });
             $(".card-body").css("opacity", "1");
         });

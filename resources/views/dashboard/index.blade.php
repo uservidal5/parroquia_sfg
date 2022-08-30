@@ -14,6 +14,8 @@
 
 @section('body')
     <div class="row">
-        <div class="col-12"></div>
+        <div class="col-12">
+            <img class="w-100" src="{{ asset('img/Logo PSFG-03.jpg') }}" alt="">
+        </div>
     </div>
 @endsection

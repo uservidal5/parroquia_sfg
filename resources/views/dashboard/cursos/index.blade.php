@@ -122,6 +122,7 @@
         $(async () => {
             await $("#tabla-cursos").DataTable({
                 // scrollX: true,
+                language: espanol,
             });
             $(".card-body").css("opacity", "1");
         });
