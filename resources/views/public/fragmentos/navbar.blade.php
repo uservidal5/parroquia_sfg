@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('home') }}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ route('home') }}">Inicio <span class="sr-only">(current)</span></a>
             </li>
             <li class="d-none nav-item ">
                 <a class="nav-link" href="#">Matriculas</a>
