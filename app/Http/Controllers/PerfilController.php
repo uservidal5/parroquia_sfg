@@ -125,7 +125,7 @@ class PerfilController extends Controller
         $data["inscribibles"] = Curso::where("disponibilidad_cur", 1)
             // ->where("nivel_cur", $nivel) //
             ->whereNotIn("id", $ids_matriculas)
-            ->whereYear("fecha_inicio_cur", date("Y"))
+            // ->whereYear("fecha_inicio_cur", date("Y"))
             ->orderBy("cursos.nivel_cur", "desc")
             ->orderBy("cursos.fecha_inicio_cur", "desc")
             ->get();

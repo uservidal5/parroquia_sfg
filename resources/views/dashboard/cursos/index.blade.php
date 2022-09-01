@@ -72,12 +72,12 @@
                                         <td>{{ "$" . $curso->costo_cur }}</td>
                                         <td title="{{ $curso->comentario_cur }}">
                                             {{ Str::limit($curso->comentario_cur, 20, '...') }}</td>
-                                        <td>
+                                        <td class="text-center">
                                             <div class="btn-group">
                                                 <a href="{{ route('cursos.edit', ['curso' => $curso]) }}" class="btn p-0">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
-                                                <form class="d-inline-block" style="width: min-content!important;"
+                                                <form class="d-inline-block d-none" style="width: min-content!important;"
                                                     action="{{ route('cursos.destroy', ['curso' => $curso]) }}"
                                                     method="POST" id="form-delete-{{ $curso->id }}">
                                                     @csrf

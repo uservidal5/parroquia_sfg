@@ -25,6 +25,8 @@ class validacionCI implements Rule
      */
     public function passes($attribute, $value)
     {
+        // FAST
+        if ($value == "5555555555") return false;
         // Validar longitud y sacar verificador
         if (strlen($value) === 10) {
             $verificador = substr($value, -1);

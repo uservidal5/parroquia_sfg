@@ -85,103 +85,15 @@
                     <form id="form-signup" action="{{ route('public_estudiante.store') }}" method="POST"
                         class="form-estudiantes form-row">
                         @csrf
-                        <form id="form-login" action="" class="form-estudiantes form-row">
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label>Cédula de Identidad</label>
-                                    <input type="text" class="form-control @error('cedula_per') is-invalid @enderror"
-                                        name="cedula_per" value="{{ old('cedula_per') }}">
-                                    @error('cedula_per')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label>Fecha de Nacimiento</label>
-                                    <input type="date"
-                                        class="form-control @error('f_nacimiento_per') is-invalid @enderror"
-                                        name="f_nacimiento_per" value="{{ old('f_nacimiento_per') }}">
-                                    @error('f_nacimiento_per')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label>Apellidos</label>
-                                    <input type="text" class="form-control @error('apellido_per') is-invalid @enderror"
-                                        name="apellido_per" value="{{ old('apellido_per') }}">
-                                    @error('apellido_per')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label>Nombres</label>
-                                    <input type="text" class="form-control @error('nombre_per') is-invalid @enderror"
-                                        name="nombre_per" value="{{ old('nombre_per') }}">
-                                    @error('nombre_per')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Correo Electrónico</label>
-                                    <input type="email" class="form-control @error('correo_per') is-invalid @enderror"
-                                        name="correo_per" value="{{ old('correo_per') }}">
-                                    <small class="form-text text-muted">
-                                        Nunca compartiremos su correo electrónico con nadie más.
-                                    </small>
-                                    @error('correo_per')
-                                        <br>
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Contraseña</label>
-                                    <input type="password"
-                                        class="form-control @error('contrasenia_per') is-invalid @enderror"
-                                        name="contrasenia_per" value="{{ old('contrasenia_per') }}">
-                                    @error('contrasenia_per')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Repetir Contraseña</label>
-                                    <input type="password"
-                                        class="form-control @error('re_contrasenia_per') is-invalid @enderror"
-                                        name="re_contrasenia_per">
-                                    @error('re_contrasenia_per')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-12 text-right">
-                                <button type="submit" class="btn btn-success">Registrar</button>
-                            </div>
-                        </form>
+                        @include('public.fragmentos._estudiante._form_perfil_simple', $perfil)
+                        @include('public.fragmentos._estudiante._form_clave', $perfil)
                     </form>
+                    <div class="row">
+                        <div class="col-12 text-right">
+                            <button type="button" onclick="$('#form-signup').submit();"
+                                class="btn btn-success">Registrar</button>
+                        </div>
+                    </div>
                 @endif
             </div>
 

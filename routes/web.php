@@ -28,8 +28,10 @@ Route::get('/acceso_estudiantes/{type}', [PublicController::class, 'acceso_estud
 Route::post('/acceso_estudiantes', [PublicController::class, 'public_estudiante_store'])->name("public_estudiante.store");
 Route::post('/login_estudiantes', [PublicController::class, 'public_estudiante_login'])->name("public_estudiante.login");
 // HA HECHO LOGIN
-Route::get('/panel_estudiante', [PublicController::class, 'inicio_estudiante'])->name("inicio_estudiante.index")->middleware("auth.perfil");
+Route::get('/panel_estudiante/{tab?}/{parental?}', [PublicController::class, 'inicio_estudiante'])->name("inicio_estudiante.index")->middleware("auth.perfil");
 Route::post('/logout_estudiantes', [PublicController::class, 'logout_estudiante'])->name("inicio_estudiante.logout")->middleware("auth.perfil");
+Route::put('/panel_estudiante/{perfil}', [PublicController::class, 'public_estudiante_update'])->name("public_estudiante.update");
+Route::put('/panel_estudiante/editar_clave/{perfil}', [PublicController::class, 'public_estudiante_cambio_clave'])->name("public_estudiante.cambio_clave");
 // Route::get('/', [PublicController::class, 'index'])->name("home");
 // PRIVATE
 // DASHBOARD

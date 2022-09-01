@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePerfilRequest;
+use App\Http\Requests\StorePerfilRequestPublic;
+use App\Http\Requests\UpdatePerfilContrasenaRequest;
+use App\Http\Requests\UpdatePerfilRequest;
+use App\Models\InformacionParental;
 use App\Models\Perfil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -27,19 +30,47 @@ class PublicController extends Controller
             return redirect(route("inicio_estudiante.index"));
         }
         $data["type"] = $type;
+        $data["perfil"] = new Perfil();
+
         return view("public.acceso_estudiantes", $data);
     }
-    public function public_estudiante_store(StorePerfilRequest $request)
+    public function public_estudiante_store(StorePerfilRequestPublic $request)
     {
         # code...
         $new_perfil = new Perfil($request->validated());
         $new_perfil->contrasenia_per = Hash::make($request->contrasenia_per);
         $new_perfil->save();
+        // Informacion Parental
+        // PADRE
+        $info_padre = new InformacionParental();
+        $info_padre->tipo_parental_inf = "PADRE";
+        $info_padre->perfil_id = $new_perfil->id;
+        $info_padre->save();
+
+        // MADRE
+        $info_madre = new InformacionParental();
+        $info_madre->tipo_parental_inf = "MADRE";
+        $info_madre->perfil_id = $new_perfil->id;
+        $info_madre->save();
         // LOGIN
         // SET SESSION
         session(['idPerfilLogin' => $new_perfil->id]);
         // return $new_perfil;
         return redirect(route("inicio_estudiante.index"));
+    }
+    public function public_estudiante_update(UpdatePerfilRequest $request, Perfil $perfil)
+    {
+        $perfil->update($request->all());
+        return back()->with(["status" => "ok", "message" => "Perfil actualizado con éxito!"]);
+    }
+    public function public_estudiante_cambio_clave(UpdatePerfilContrasenaRequest $request, Perfil $perfil)
+    {
+        //
+        $encriptada = Hash::make($request->contrasenia_per);
+        $request["contrasenia_per"] = $encriptada;
+        $perfil->update($request->all());
+        return back()->with(["status" => "ok", "message" => "Contraseña actualizada con éxito!"]);
+        // return redirect(route("estudiantes.index"));
     }
     public function public_estudiante_login(Request $request)
     {
@@ -62,13 +93,30 @@ class PublicController extends Controller
         }
     }
     // SESION DEL ESTUDIANTE
-    public function inicio_estudiante()
+    public function inicio_estudiante($tab = '', $parental = '')
     {
         $idPerfilLogin = session('idPerfilLogin');
         $perfil = Perfil::find($idPerfilLogin);
         // return $perfil;
         $data["perfil"] = $perfil;
-        return view("public.protected.index", $data);
+        $data["tab"] = $tab;
+        $data["parental"] = $parental;
+
+        switch ($tab) {
+            case 'perfil':
+                # code...
+                return view("public.estudiante.perfil", $data);
+                break;
+            case 'cambio_clave':
+                # code...
+                return view("public.estudiante.cambio_clave", $data);
+                break;
+
+            default:
+                # code...
+                return view("public.protected.index", $data);
+                break;
+        }
     }
     public function logout_estudiante()
     {

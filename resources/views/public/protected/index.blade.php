@@ -2,28 +2,37 @@
 @section('page_title')
     Inicio | Parroquia San Francisco de Guallabamba
 @endsection
-
+@section('css')
+    <style>
+        .space-icon {
+            width: 2rem;
+        }
+    </style>
+@endsection
 @section('body')
     @include('public.fragmentos.navbar')
+
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
-                <div class="jumbotron jumbotron-fluid">
-                    <div class="container">
-                        <h1 class="display-4">Bienvenido {{ $perfil->nombre_per . ' ' . $perfil->apellido_per }}!</h1>
-                        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra
-                            attention to featured content or information.</p>
-                        <hr class="my-4">
-                        <p>It uses utility classes for typography and spacing to space content out within the larger
-                            container.</p>
-                        <button onclick="logout()" type="button" class="btn btn-danger btn-lg">
-                            Salir
-                        </button>
-
+            <div class="col-12 col-md-2 p-0">
+                @include('public.fragmentos._layout._navegacion')
+            </div>
+            <div class="col-12 col-md-10 p-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        @if ($tab === '')
+                            {{-- Saludo --}}
+                            <h1 class="display-4">Bienvenido {{ $perfil->nombre_per . ' ' . $perfil->apellido_per }}!</h1>
+                            <hr>
+                            {{-- Saludo --}}
+                        @endif
+                        @yield('card_body')
                     </div>
                 </div>
             </div>
         </div>
+        {{-- Navegacion --}}
+        {{-- Body --}}
     </div>
     <form id="logout-form" class="d-none" action="{{ route('inicio_estudiante.logout') }}" method="post">
         @csrf
@@ -51,4 +60,5 @@
             })
         }
     </script>
+    @include('dashboard.fragemtos.form-status')
 @endsection

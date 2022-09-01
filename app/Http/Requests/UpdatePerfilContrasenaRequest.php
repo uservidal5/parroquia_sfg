@@ -34,7 +34,7 @@ class UpdatePerfilContrasenaRequest extends FormRequest
         return [
             //
             "required" => "Campo obligatorio",
-            "same" => "Lasc contraseñas no coinciden",
+            "same" => "Las contraseñas no coinciden",
             "max" => "No debe ser mayor que 255 caracteres",
         ];
     }
