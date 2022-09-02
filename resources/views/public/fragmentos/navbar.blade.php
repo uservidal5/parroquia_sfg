@@ -14,7 +14,7 @@
                 <a class="nav-link" href="#">Matriculas</a>
             </li>
             <li
-                class="d-none nav-item {{ request()->routeIs('acceso_estudiantes') ||
+                class="nav-item {{ request()->routeIs('acceso_estudiantes') ||
                 request()->is('acceso_estudiantes/*') ||
                 request()->routeIs('inicio_estudiante.index') ||
                 request()->is('panel_estudiante/*')
