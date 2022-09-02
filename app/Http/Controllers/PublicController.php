@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePerfilRequestPublic;
+use App\Http\Requests\UpdateInformacionParentalRequest;
 use App\Http\Requests\UpdatePerfilContrasenaRequest;
 use App\Http\Requests\UpdatePerfilRequest;
 use App\Models\InformacionParental;
 use App\Models\Perfil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Faker\Generator;
+use Illuminate\Container\Container;
 
 class PublicController extends Controller
 {
@@ -72,6 +75,13 @@ class PublicController extends Controller
         return back()->with(["status" => "ok", "message" => "Contraseña actualizada con éxito!"]);
         // return redirect(route("estudiantes.index"));
     }
+    public function public_informacion_parental(UpdateInformacionParentalRequest $request, InformacionParental $informacionParental)
+    {
+        //
+        $request["estado_inf"] = $request->estado_inf == "1" ? 1 : 0;
+        $informacionParental->update($request->all());
+        return back()->with(["status" => "ok", "message" => "Perfil actualizado con éxito!"]);
+    }
     public function public_estudiante_login(Request $request)
     {
         # code...
@@ -111,11 +121,50 @@ class PublicController extends Controller
                 # code...
                 return view("public.estudiante.cambio_clave", $data);
                 break;
+            case 'informacion_parental':
+                if ($parental == "padre") {
+                    $data["info_parental"] = InformacionParental::where("perfil_id", $perfil->id)
+                        ->where("tipo_parental_inf", "PADRE")
+                        ->first();
+                } else {
+                    $data["info_parental"] = InformacionParental::where("perfil_id", $perfil->id)
+                        ->where("tipo_parental_inf", "MADRE")
+                        ->first();
+                }
+                return view("public.estudiante.informacion_parental", $data);
+                # code...
+                break;
 
             default:
                 # code...
                 return view("public.protected.index", $data);
                 break;
+        }
+    }
+    public function restore_password(Request $request)
+    {
+        # code...
+        $request->validate([
+            "cedula_per" => "required|exists:perfils",
+            "f_nacimiento_per" => "required",
+        ], [
+            "required" => "Campo obligatorio",
+            "cedula_per.exists" => "Cédula no encontrada.",
+        ]);
+
+        $perfil = Perfil::where("cedula_per", $request->cedula_per)
+            ->where("f_nacimiento_per", $request->f_nacimiento_per)
+            ->first();
+
+        if ($perfil) {
+            $faker = Container::getInstance()->make(Generator::class);
+            // $new_password =  $faker->regexify('[A-Z]{5}[0-4]{5}');
+
+            $new_password =  $faker->password(10);
+            $perfil->update(['contrasenia_per' => Hash::make($new_password)]);
+            return back()->with(['new_password' => $new_password]);
+        } else {
+            return back()->withErrors(['cedula_per' => 'No se encontraron registros.'])->withInput();
         }
     }
     public function logout_estudiante()

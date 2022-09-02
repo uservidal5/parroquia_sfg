@@ -32,6 +32,8 @@ Route::get('/panel_estudiante/{tab?}/{parental?}', [PublicController::class, 'in
 Route::post('/logout_estudiantes', [PublicController::class, 'logout_estudiante'])->name("inicio_estudiante.logout")->middleware("auth.perfil");
 Route::put('/panel_estudiante/{perfil}', [PublicController::class, 'public_estudiante_update'])->name("public_estudiante.update");
 Route::put('/panel_estudiante/editar_clave/{perfil}', [PublicController::class, 'public_estudiante_cambio_clave'])->name("public_estudiante.cambio_clave");
+Route::put('/panel_estudiante/informacion_parental/{informacion_parental}', [PublicController::class, 'public_informacion_parental'])->name("public_informacion_parental.update");
+Route::post('/panel_estudiante/restore_password/', [PublicController::class, 'restore_password'])->name("public_estudiante.restore_password");
 // Route::get('/', [PublicController::class, 'index'])->name("home");
 // PRIVATE
 // DASHBOARD

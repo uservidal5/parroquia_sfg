@@ -31,12 +31,14 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-6 mb-4">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
+                <div class="d-none d-md-block">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
                 <h2>Ingresa a nuestra plataforma</h2>
                 <p>
                     Si ya creaste tu cuenta, puedes <a href="{{ route('acceso_estudiantes', ['type' => 'login']) }}"
@@ -78,9 +80,12 @@
                         </div>
                         <div class="col-12 mb-4">
                             <button type="submit" class="btn btn-primary">Ingresar</button>
+                            <a class="btn btn-link"
+                                href="{{ route('acceso_estudiantes', ['type' => 'forgot-password']) }}">¿Olvidaste tu
+                                contraseña?</a>
                         </div>
                     </form>
-                @else
+                @elseif($type == 'signup')
                     {{-- SIGNUP --}}
                     <form id="form-signup" action="{{ route('public_estudiante.store') }}" method="POST"
                         class="form-estudiantes form-row">
@@ -92,6 +97,53 @@
                         <div class="col-12 text-right">
                             <button type="button" onclick="$('#form-signup').submit();"
                                 class="btn btn-success">Registrar</button>
+                        </div>
+                    </div>
+                @else
+                    {{-- Olvidó contraseña --}}
+                    <form id="form-forgot-password" action="{{ route('public_estudiante.restore_password') }}"
+                        method="POST" class="form-estudiantes form-row">
+                        @csrf
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label>Cédula de Identidad</label>
+                                <input type="text" class="form-control @error('cedula_per') is-invalid @enderror"
+                                    name="cedula_per" value="{{ old('cedula_per') }}">
+                                @error('cedula_per')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label>Fecha de Nacimiento</label>
+                                <input type="date" class="form-control @error('f_nacimiento_per') is-invalid @enderror"
+                                    name="f_nacimiento_per" value="{{ old('f_nacimiento_per') }}">
+                                @error('f_nacimiento_per')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        @if (session('new_password'))
+                            <div class="col-12">
+                                <p class="text-center">
+                                    Tu nueva contraseña temporal es:
+                                    <b class="d-block my-4 h3">{{ session('new_password') }}</b>
+                                    Ingresa al sistema y actualizala lo más pronto posible.
+                                </p>
+                            </div>
+                        @endif
+                    </form>
+                    <div class="row">
+                        <div class="col-12 text-right">
+                            <button type="button" onclick="$('#form-forgot-password').submit();" class="btn btn-info">
+                                <i class="fas fa-key mr-2"></i>
+                                Recuperar Contraseña
+                            </button>
                         </div>
                     </div>
                 @endif

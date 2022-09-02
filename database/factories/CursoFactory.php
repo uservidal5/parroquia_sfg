@@ -14,6 +14,7 @@ class CursoFactory extends Factory
      */
     public function definition()
     {
+
         $element = $this->faker->randomElement($this->tipos);
         $nivel = array_search($element, $this->tipos) + 1;
         return [
