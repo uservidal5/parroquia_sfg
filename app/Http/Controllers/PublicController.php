@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreMatriculaRequest;
 use App\Http\Requests\StorePerfilRequestPublic;
 use App\Http\Requests\UpdateInformacionParentalRequest;
 use App\Http\Requests\UpdatePerfilContrasenaRequest;
 use App\Http\Requests\UpdatePerfilRequest;
+use App\Models\Curso;
 use App\Models\InformacionParental;
+use App\Models\Matricula;
 use App\Models\Perfil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -134,7 +137,50 @@ class PublicController extends Controller
                 return view("public.estudiante.informacion_parental", $data);
                 # code...
                 break;
+            case 'matriculas':
+                # code...
+                $matriculado = Matricula::where("perfil_id", $perfil->id)
+                    ->join('cursos', 'cursos.id', '=', 'matriculas.curso_id')
+                    ->orderBy("cursos.nivel_cur", "desc")
+                    ->get();
 
+                $data["matriculado"] = $matriculado;
+
+                $ultimo_finalizado = true;
+                if (count($matriculado) > 0) {
+                    $ultima_matricula = Matricula::where("perfil_id", $perfil->id)
+                        ->join('cursos', 'cursos.id', '=', 'matriculas.curso_id')
+                        ->orderBy("cursos.nivel_cur", "desc")
+                        ->first();
+                    $ultimo_finalizado = $ultima_matricula->estado_mat == 'Aprobado' && $ultima_matricula->pago_mat  ? true : false;
+                }
+
+                $data["inscribibles"] = false;
+
+                if ($ultimo_finalizado) {
+                    //
+                    $ids_matriculas = array();
+                    $niveles = array();
+
+                    foreach ($matriculado as $key => $matricula) {
+                        array_push($ids_matriculas, $matricula->id);
+                        array_push($niveles, $matricula->nivel_cur);
+                    }
+
+                    $nivel = $niveles ? max($niveles) : 0;
+                    $nivel++;
+
+                    $data["inscribibles"] = Curso::where("disponibilidad_cur", 1)
+                        ->where("nivel_cur", $nivel) //
+                        ->whereNotIn("id", $ids_matriculas)
+                        ->whereYear("fecha_inicio_cur", date("Y"))
+                        ->orderBy("cursos.nivel_cur", "desc")
+                        ->orderBy("cursos.fecha_inicio_cur", "desc")
+                        ->get();
+                }
+
+                return view("public.estudiante.matriculas", $data);
+                break;
             default:
                 # code...
                 return view("public.protected.index", $data);
@@ -172,5 +218,13 @@ class PublicController extends Controller
         # code...
         session()->forget('idPerfilLogin');
         return redirect(route("acceso_estudiantes", ["type" => "login"]));
+    }
+    // Matriculas
+    public function matriculas_store(StoreMatriculaRequest $request)
+    {
+        //
+        $new_matricula = new Matricula($request->all());
+        $new_matricula->save();
+        return back()->with(["status" => "ok", "message" => "Matricula realizada con éxito!"]);
     }
 }

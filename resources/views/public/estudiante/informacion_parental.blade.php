@@ -34,7 +34,7 @@
         <div class="col-12 col-md-10 mx-auto mb-4 text-right">
             <button type="button" onclick="$('#form-{{ $parental }}').submit();" class="btn btn-primary">
                 <i class="fas fa-save mr-2"></i>
-                Guardar
+                Actualizar
             </button>
         </div>
 

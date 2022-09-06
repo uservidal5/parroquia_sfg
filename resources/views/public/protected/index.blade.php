@@ -22,8 +22,20 @@
                     <div class="card-body">
                         @if ($tab === '')
                             {{-- Saludo --}}
-                            <h1 class="display-4">Bienvenido {{ $perfil->nombre_per . ' ' . $perfil->apellido_per }}!</h1>
-                            <hr>
+                            <div class="jumbotron">
+                                <h1 class="display-4">
+                                    Bienvenido {{ $perfil->nombre_per . ' ' . $perfil->apellido_per }}!
+                                </h1>
+                                <p class="lead">
+                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis corporis itaque, optio
+                                    reiciendis vitae, inventore ex illum velit nostrum unde voluptatum doloremque adipisci
+                                    officiis facilis! Quod nostrum maxime facere natus!
+                                </p>
+                                <hr class="my-4">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque, maiores.
+                                </p>
+                            </div>
                             {{-- Saludo --}}
                         @endif
                         @yield('card_body')

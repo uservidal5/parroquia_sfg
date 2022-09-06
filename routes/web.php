@@ -34,6 +34,7 @@ Route::put('/panel_estudiante/{perfil}', [PublicController::class, 'public_estud
 Route::put('/panel_estudiante/editar_clave/{perfil}', [PublicController::class, 'public_estudiante_cambio_clave'])->name("public_estudiante.cambio_clave");
 Route::put('/panel_estudiante/informacion_parental/{informacion_parental}', [PublicController::class, 'public_informacion_parental'])->name("public_informacion_parental.update");
 Route::post('/panel_estudiante/restore_password/', [PublicController::class, 'restore_password'])->name("public_estudiante.restore_password");
+Route::post('/panel_estudiante/matricula/', [PublicController::class, 'matriculas_store'])->name("public_matriculas.store");
 // Route::get('/', [PublicController::class, 'index'])->name("home");
 // PRIVATE
 // DASHBOARD
@@ -54,7 +55,7 @@ Route::put('/cambiar_clave_acceso', [UserController::class, 'cambiar_clave_acces
 
 Route::apiResource("/informacion_parental", InformacionParentalController::class);
 Route::resource("/cursos", CursoController::class);
-Route::apiResource("/matriculas", MatriculaController::class);
+Route::apiResource("/matriculas", MatriculaController::class)->middleware("auth");;
 
 Auth::routes();
 

@@ -23,7 +23,7 @@
                 <div class="col-12 text-right">
                     <button type="button" onclick="$('#form-edit-password').submit();" class="btn btn-warning">
                         <i class="fas fa-key mr-2"></i>
-                        Cambiar Contraseña
+                        Actualizar Contraseña
                     </button>
                 </div>
             </div>

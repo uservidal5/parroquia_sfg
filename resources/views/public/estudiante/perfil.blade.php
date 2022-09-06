@@ -24,8 +24,8 @@
                 </div>
                 <div class="col-12 col-md-6 mb-4 text-right">
                     <button type="button" onclick="$('#form-edit-perfil').submit();" class="btn btn-primary">
-                        <i class="fas fa-pen mr-2"></i>
-                        Editar
+                        <i class="fas fa-save mr-2"></i>
+                        Actualizar
                     </button>
                 </div>
             </div>
