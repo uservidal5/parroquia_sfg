@@ -1,6 +1,6 @@
 @extends('template.base_simple')
 @section('page_title')
-    Acceso Estudiantes | Parroquia San Francisco de Guallabamba
+    Acceso Catequizandos | Parroquia San Francisco de Guallabamba
 @endsection
 @section('css')
     <style>

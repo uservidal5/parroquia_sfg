@@ -20,16 +20,16 @@
                 request()->is('panel_estudiante/*')
                     ? 'active'
                     : '' }}">
-                <a class="nav-link" href="{{ route('acceso_estudiantes', ['type' => 'login']) }}">Acceso Estudiantes</a>
+                <a class="btn btn-info" href="{{ route('acceso_estudiantes', ['type' => 'login']) }}">Acceso Catequizandos</a>
             </li>
         </ul>
         <div>
             <!-- Authentication Links -->
             @if (!session('idPerfilLogin'))
                 @guest
-                    @if (Route::has('login'))
+                    @if (Route::has('login'))                        
                         <a href="{{ route('login') }}" class="btn btn-outline-info">
-                            Iniciar Sesión
+                            Iniciar Sesión (Personal Parroquia)
                         </a>
                     @endif
 

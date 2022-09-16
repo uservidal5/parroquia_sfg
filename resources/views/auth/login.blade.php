@@ -24,8 +24,10 @@
                                 </div>
                                 <div class="col-12">
                                     <span class="fw-semi-bold text-muted">
-                                        Hola! Vamos a empezar
+                                        Este Login es solo para personal administrativo de la Parroquia San Francisco de Guayllabamba.
+                                        Si eres catequizando ingresa en:
                                     </span>
+                                    <a class="link" href="{{ route('acceso_estudiantes', ['type' => 'login']) }}">Acceso catequizandos</a>
                                 </div>
                                 <div class="col-12 mb-4">
                                     <span class="fw-light text-info">

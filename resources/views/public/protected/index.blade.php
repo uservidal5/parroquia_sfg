@@ -33,7 +33,7 @@
                                 </p>
                                 <hr class="my-4">
                                 <p>
-                                    Nota: Nos inovamos ya no es necesarío llenar la ficha de catequesis a mano.
+                                    Nota: Nos inovamos ya no es necesario llenar la ficha de catequesis a mano.
                                 </p>
                             </div>
                             {{-- Saludo --}}
