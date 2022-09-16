@@ -34,12 +34,13 @@
                     <br>
                 </div>
                 <h2>Ingresa a nuestra plataforma</h2>
+                <h3>Si es tu primera vez, registrate</h3>
                 <p>
-                    Si ya creaste tu cuenta, puedes <a href="{{ route('acceso_estudiantes', ['type' => 'login']) }}"
-                        class="btn-form {{ $type == 'login' ? 'underline' : '' }}"><i>iniciar sésion</i></a>, o si aun
+                    Si ya te registraste, puedes <a href="{{ route('acceso_estudiantes', ['type' => 'login']) }}"
+                        class="btn-form {{ $type == 'login' ? 'underline' : '' }}"><i>Iniciar sésion</i></a>, o si aun
                     no tienes tu
-                    cuenta puedes crearlas desde <a href="{{ route('acceso_estudiantes', ['type' => 'signup']) }}"
-                        class="btn-form {{ $type == 'signup' ? 'underline' : '' }}"><span>aqui</span></a>.
+                    registro puedes crearlas dando click en: <a href="{{ route('acceso_estudiantes', ['type' => 'signup']) }}"
+                        class="btn-form {{ $type == 'signup' ? 'underline' : '' }}"><span>REGISTRARME</span></a>.
                 </p>
             </div>
             <div class="col-12 col-md-6 mb-4">
