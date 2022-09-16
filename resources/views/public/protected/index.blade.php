@@ -27,13 +27,13 @@
                                     Bienvenido {{ $perfil->nombre_per . ' ' . $perfil->apellido_per }}!
                                 </h1>
                                 <p class="lead">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis corporis itaque, optio
-                                    reiciendis vitae, inventore ex illum velit nostrum unde voluptatum doloremque adipisci
-                                    officiis facilis! Quod nostrum maxime facere natus!
+                                    Aquí podras ingresar toda la información para tu proceso de matriculación en cualquier nivel
+                                    de catequesis, recuerda ingresar bien la información y acercarte a secretaraía para realizar el 
+                                    pago o consulta.
                                 </p>
                                 <hr class="my-4">
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque, maiores.
+                                    Nota: Nos inovamos ya no es necesarío llenar la ficha de catequesis a mano.
                                 </p>
                             </div>
                             {{-- Saludo --}}

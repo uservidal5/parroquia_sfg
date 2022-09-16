@@ -16,13 +16,12 @@
             <div class="col-12">
                 <div class="jumbotron jumbotron-fluid">
                     <div class="container">
-                        <h1 class="display-4">Acceso para estudiantes</h1>
-                        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra
-                            attention to featured content or information.</p>
+                        <h1 class="display-4">Acceso para catequizandos</h1>
+                        <p class="lead">Te presentamos el sistema web para la matriculación de catequesis.</p>
                         <hr class="my-4">
-                        <p>It uses utility classes for typography and spacing to space content out within the larger
-                            container.</p>
-                        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        <p>Ingresa tu información completa e incribete en tu nivel y realiza el pago el secretaría para 
+                            que puedan entregar un documento con el sello de la parroquia que certifique tu inscripción.</p>
+                        {{-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> --}}
                     </div>
                 </div>
             </div>
@@ -32,11 +31,6 @@
         <div class="row">
             <div class="col-12 col-md-6 mb-4">
                 <div class="d-none d-md-block">
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
                     <br>
                 </div>
                 <h2>Ingresa a nuestra plataforma</h2>
