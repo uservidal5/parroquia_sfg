@@ -25,7 +25,7 @@ class StorePerfilRequest extends FormRequest
     public function rules()
     {
         return [
-            "cedula_per" => ["required", "integer", new cedula, "unique:perfils"],
+            "cedula_per" => ["required", "digits:10", new cedula, "unique:perfils"],
             "apellido_per" => "required|regex:/^[\pL\s\-\.]+$/u|max:255",
             "nombre_per" => "required|regex:/^[\pL\s\-\.]+$/u|max:255",
             "f_nacimiento_per" => "date",
@@ -40,7 +40,7 @@ class StorePerfilRequest extends FormRequest
     {
         return [
             "required" => "Campo obligatorio",
-            "cedula_per.integer" => "Cédula solo debe contener números.",
+            "cedula_per.digits" => "Cédula solo debe contener números.",
             "cedula_per.unique" => "Cédula ya registrada.",
             "re_contrasenia_per.same" => "Las contraseñas no coinciden.",
             "correo_per.unique" => "Correo Electrónico ya registrado.",

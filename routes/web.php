@@ -55,7 +55,7 @@ Route::put('/cambiar_clave_acceso', [UserController::class, 'cambiar_clave_acces
 
 Route::apiResource("/informacion_parental", InformacionParentalController::class);
 Route::resource("/cursos", CursoController::class);
-Route::apiResource("/matriculas", MatriculaController::class)->middleware("auth");;
+Route::apiResource("/matriculas", MatriculaController::class)->middleware("auth");
 
 Auth::routes();
 
